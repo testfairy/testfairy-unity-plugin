@@ -1,0 +1,10 @@
+language: objective-c
+
+before_install:
+  - wget http://netstorage.unity3d.com/unity/unity-4.6.3.dmg
+  - hdituil attach unity-4.6.3.dmg
+  - sudo installer -pkg "/Volumes/Unity Installer/unity.pkg" -target /
+
+script:
+  - echo win
+ 
