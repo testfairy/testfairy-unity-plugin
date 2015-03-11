@@ -2,7 +2,7 @@
 
 1. Download this git repository: [master.zip](https://github.com/testfairy/testfairy-unity-plugin/archive/master.zip)
 
-2. Unpack the zip on your disk
+2. Unpack the zip on your disk.
  
 3. Drag **TestFairy.cs** and **iOS** into your Project under `Plugins`. If you don't have Plugins, you can drag the entire folder onto your project.
 
