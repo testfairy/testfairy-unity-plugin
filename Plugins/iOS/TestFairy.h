@@ -79,6 +79,13 @@
  */
 + (NSString *)sessionUrl;
 
+/**
+ * Takes a screenshot.
+ *
+ * @see
+ */
++ (void)takeScreenshot;
+
 @end
 
 
