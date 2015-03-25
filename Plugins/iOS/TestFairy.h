@@ -86,6 +86,21 @@
  */
 + (void)takeScreenshot;
 
+/**
+ * Remote logging, use TFLog as you would use printf. These logs will be sent to the server,
+ * but will not appear in the console.
+ */
+#if __cplusplus
+extern "C" {
+#endif
+	
+void TFLog(NSString *format, ...) __attribute__((format(__NSString__, 1, 2)));
+void TFLogv(NSString *format, va_list arg_list);
+	
+#if __cplusplus
+}
+#endif
+
 @end
 
 
