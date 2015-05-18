@@ -6,14 +6,22 @@
 /**
  * Initialize a TestFairy session.
  *
- * @param APIKey
+ * @param APIKey Your key as given to you in your TestFairy account
  */
 + (void)begin:(NSString *)APIKey;
 
 /**
+ * Returns SDK version (x.x.x) string
+ *
+ * @return version
+ */
++ (NSString *)version;
+
+/**
  * Hides a specific view from appearing in the video generated.
  *
- * @param view
+ * @param view The specific view you wish to hide from screenshots
+ *
  */
 + (void)hideView:(UIView *)view;
 
@@ -27,11 +35,20 @@
 + (void)pushFeedbackController;
 
 /**
+ * Send a feedback on behalf of the user. Call when using a in-house
+ * feedback view controller with a custom design and feel. Feedback will
+ * be associated with the current session.
+ *
+ * @param feedbackString Feedback text
+ */
++ (void)sendUserFeedback:(NSString *)feedbackString;
+
+/**
  * Proxy didUpdateLocation delegate values and these
  * locations will appear in the recorded sessions. Useful for debugging
  * actual long/lat values against what the user sees on screen.
  *
- * @param locations
+ * @param locations Array of CLLocation. The first object of the array will determine the user location
  */
 + (void)updateLocation:(NSArray *)locations;
 
@@ -41,7 +58,7 @@
  * user passed through this checkpoint, for bettering understanding
  * user experience and behavior.
  *
- * @param name
+ * @param name The checkpoint name
  */
 + (void)checkpoint:(NSString *)name;
 
@@ -51,7 +68,7 @@
  * to the value of the user-id after they logged in. Can be called
  * only once per session (subsequent calls will be ignored.)
  *
- * @param correlationId
+ * @param correlationId Id for the current session
  */
 + (void)setCorrelationId:(NSString *)correlationId;
 
@@ -82,7 +99,6 @@
 /**
  * Takes a screenshot.
  *
- * @see
  */
 + (void)takeScreenshot;
 
@@ -94,13 +110,11 @@
 extern "C" {
 #endif
 	
-void TFLog(NSString *format, ...) __attribute__((format(__NSString__, 1, 2)));
-void TFLogv(NSString *format, va_list arg_list);
+	void TFLog(NSString *format, ...) __attribute__((format(__NSString__, 1, 2)));
+	void TFLogv(NSString *format, va_list arg_list);
 	
 #if __cplusplus
 }
 #endif
 
 @end
-
-
