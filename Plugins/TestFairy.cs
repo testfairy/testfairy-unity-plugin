@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using System.Runtime.InteropServices;
 
@@ -100,6 +101,42 @@ namespace TestFairyUnity
 		{
 			string sessionUrl = TestFairy_sessionUrl ();
 			return sessionUrl;
+		}
+
+		[DllImport("__Internal")]
+		private static extern string TestFairy_version();
+		
+		/// <summary>
+		/// Returns the current installed version of TestFairy SDK.
+		/// </summary>
+		/// <returns>TestFairy version string.</returns>
+		public static string version()
+		{
+			string version = TestFairy_version ();
+			return version;
+		}
+
+		[DllImport("__Internal")]
+		private static extern void TestFairy_sendUserFeedback(string feedback);
+		
+		/// <summary>
+		/// Sends a feedback to TestFairy
+		/// </summary>
+		/// <returns>Feedback string.</returns>
+		public static void sendUserFeedback(string feedback)
+		{
+			TestFairy_sendUserFeedback(feedback);
+		}
+
+		[DllImport("__Internal")]
+		private static extern void TestFairy_takeScreenshot();
+		
+		/// <summary>
+		/// Takes a screenshot
+		/// </summary>
+		public static void takeScreenshot()
+		{
+			TestFairy_takeScreenshot ();
 		}
 
 		#elif UNITY_ANDROID
