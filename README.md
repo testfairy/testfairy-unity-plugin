@@ -1,6 +1,6 @@
 # TestFairy plugin for Unity
 
-1. Download this git repository: [master.zip](https://github.com/testfairy/testfairy-unity-plugin/archive/master.zip)
+1. Download the latest [TestFairy plugin for Unity](http://bigbird.gs.dev.testfairy.net/sdk/ios/download/latest/unity/).
 
 2. Unpack the zip on your disk.
  
