@@ -1,6 +1,6 @@
 # TestFairy plugin for Unity
 
-1. Download the latest [TestFairy plugin for Unity](http://bigbird.gs.dev.testfairy.net/sdk/ios/download/latest/unity/).
+1. Download the latest [TestFairy plugin for Unity](https://app.testfairy.com/sdk/ios/download/latest/unity/).
 
 2. Unpack the zip on your disk.
  
