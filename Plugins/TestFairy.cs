@@ -140,6 +140,139 @@ namespace TestFairyUnity
 		}
 
 		#elif UNITY_ANDROID
+
+	    void Start () {
+			AndroidJNI.AttachCurrentThread();
+		}
+
+		public static void begin(string APIKey) {
+			AndroidJavaObject activityContext = null;
+			using(AndroidJavaClass activityClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
+				activityContext = activityClass.GetStatic<AndroidJavaObject>("currentActivity");
+			}
+
+			using(AndroidJavaClass pluginClass = new AndroidJavaClass("com.testfairy.TestFairy")) {
+				if(pluginClass != null) {
+					pluginClass.CallStatic("begin", activityContext, APIKey);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Mark a checkpoint in session. Use this text to tag a session
+		/// with a checkpoint name. Later you can filter sessions where your
+		/// user passed through this checkpoint, for bettering understanding
+		/// user experience and behavior.
+		/// </summary>
+		/// <param name="name">Name of checkpoint, make it short.</param>
+		public static void checkpoint(string name)
+		{
+			using(AndroidJavaClass pluginClass = new AndroidJavaClass("com.testfairy.TestFairy")) {
+				if(pluginClass != null) {
+					pluginClass.CallStatic("addCheckpoint", name);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Sets a correlation identifier for this session. This value can
+		/// be looked up via web dashboard. For example, setting correlation
+		/// to the value of the user-id after they logged in. Can be called
+		/// only once per session (subsequent calls will be ignored.)
+		/// </summary>
+		/// <param name="correlationId">Correlation value</param>
+		public static void setCorrelationId(string correlationId)
+		{
+			using(AndroidJavaClass pluginClass = new AndroidJavaClass("com.testfairy.TestFairy")) {
+				if(pluginClass != null) {
+					pluginClass.CallStatic("setCorrelationId", correlationId);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Pauses the current session. This method stops recoding of 
+		/// the current session until Resume() has been called.
+		/// </summary>
+		public static void pause()
+		{
+			using(AndroidJavaClass pluginClass = new AndroidJavaClass("com.testfairy.TestFairy")) {
+				if(pluginClass != null) {
+					pluginClass.CallStatic("pause");
+				}
+			}
+		}
+
+		/// <summary>
+		/// Resumes the recording of the current session. This method
+		/// resumes a session after it was paused.
+		/// </summary>
+		public static void resume()
+		{
+			using(AndroidJavaClass pluginClass = new AndroidJavaClass("com.testfairy.TestFairy")) {
+				if(pluginClass != null) {
+					pluginClass.CallStatic("resume");
+				}
+			}
+		}
+
+		/// <summary>
+		/// Returns the url of the current session while its being recorded.
+		/// Will return null if session hasn't started yet.
+		/// </summary>
+		/// <returns>The session URL.</returns>
+		public static string sessionUrl()
+		{
+			using(AndroidJavaClass pluginClass = new AndroidJavaClass("com.testfairy.TestFairy")) {
+				if(pluginClass != null) {
+					string url = pluginClass.CallStatic<string>("getSessionUrl");
+					return url;
+				}
+			}
+
+			return null;
+		}
+		
+		/// <summary>
+		/// Returns the current installed version of TestFairy SDK.
+		/// </summary>
+		/// <returns>TestFairy version string.</returns>
+		public static string version()
+		{
+			using(AndroidJavaClass pluginClass = new AndroidJavaClass("com.testfairy.TestFairy")) {
+				if(pluginClass != null) {
+					string version = pluginClass.CallStatic<string>("getVersion");
+					return version;
+				}
+			}
+
+			return null;
+		}
+		
+		/// <summary>
+		/// Sends a feedback to TestFairy
+		/// </summary>
+		/// <returns>Feedback string.</returns>
+		public static void sendUserFeedback(string feedback)
+		{
+			using(AndroidJavaClass pluginClass = new AndroidJavaClass("com.testfairy.TestFairy")) {
+				if(pluginClass != null) {
+					pluginClass.CallStatic("sendUserFeedback", feedback);
+				}
+			}			
+		}
+
+		/// <summary>
+		/// Takes a screenshot
+		/// </summary>
+		public static void takeScreenshot()
+		{
+			using(AndroidJavaClass pluginClass = new AndroidJavaClass("com.testfairy.TestFairy")) {
+				if(pluginClass != null) {
+					pluginClass.CallStatic("takeScreenshot");
+				}
+			}
+		}
 		
 		#endif
 	}
