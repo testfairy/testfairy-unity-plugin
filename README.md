@@ -20,4 +20,27 @@
 
   ![Step 4](/Images/step4.png)
   
-Save, build and run.
+7. Extra permissions are required for Android instrumentation. You can copy a version of your AndroidManifest.xml from `<root>/Temp/StagingArea/AndroidManifest.xml` into `<root>/Assets/Plugin/Android` directory. From here, edit `AndroidManifest.xml` with the following lines
+```
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+<uses-permission android:name="android.permission.BATTERY_STATS"/>
+<uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+<uses-permission android:name="android.permission.RECORD_AUDIO"/>
+<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+<uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+
+<uses-feature android:name="android.hardware.camera"/>
+<uses-permission android:name="android.permission.CAMERA"/>
+<uses-feature android:glEsVersion="0x00020000" android:required="true"/>
+
+<!-- gps perms -->
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+<uses-permission android:name="android.permission.GET_TASKS"/>
+<uses-permission android:name="android.permission.READ_LOGS"/>
+```
+
+8. Save, build and run.
