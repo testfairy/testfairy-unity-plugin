@@ -141,6 +141,8 @@ namespace TestFairyUnity
 
 		#elif UNITY_ANDROID
 
+		private static AndroidJavaClass testfairy = null;
+
 		void Start () {
 			AndroidJNI.AttachCurrentThread();
 		}
@@ -151,7 +153,7 @@ namespace TestFairyUnity
 				activityContext = activityClass.GetStatic<AndroidJavaObject>("currentActivity");
 			}
 
-			using(AndroidJavaClass pluginClass = new AndroidJavaClass("com.testfairy.TestFairy")) {
+			using(AndroidJavaClass pluginClass = getTestFairyClass())) {
 				if(pluginClass != null) {
 					pluginClass.CallStatic("begin", activityContext, APIKey);
 				}
@@ -167,7 +169,7 @@ namespace TestFairyUnity
 		/// <param name="name">Name of checkpoint, make it short.</param>
 		public static void checkpoint(string name)
 		{
-			using(AndroidJavaClass pluginClass = new AndroidJavaClass("com.testfairy.TestFairy")) {
+			using(AndroidJavaClass pluginClass = getTestFairyClass()) {
 				if(pluginClass != null) {
 					pluginClass.CallStatic("addCheckpoint", name);
 				}
@@ -183,7 +185,7 @@ namespace TestFairyUnity
 		/// <param name="correlationId">Correlation value</param>
 		public static void setCorrelationId(string correlationId)
 		{
-			using(AndroidJavaClass pluginClass = new AndroidJavaClass("com.testfairy.TestFairy")) {
+			using(AndroidJavaClass pluginClass = getTestFairyClass()) {
 				if(pluginClass != null) {
 					pluginClass.CallStatic("setCorrelationId", correlationId);
 				}
@@ -196,7 +198,7 @@ namespace TestFairyUnity
 		/// </summary>
 		public static void pause()
 		{
-			using(AndroidJavaClass pluginClass = new AndroidJavaClass("com.testfairy.TestFairy")) {
+			using(AndroidJavaClass pluginClass = getTestFairyClass()) {
 				if(pluginClass != null) {
 					pluginClass.CallStatic("pause");
 				}
@@ -209,7 +211,7 @@ namespace TestFairyUnity
 		/// </summary>
 		public static void resume()
 		{
-			using(AndroidJavaClass pluginClass = new AndroidJavaClass("com.testfairy.TestFairy")) {
+			using(AndroidJavaClass pluginClass = getTestFairyClass()) {
 				if(pluginClass != null) {
 					pluginClass.CallStatic("resume");
 				}
@@ -223,7 +225,7 @@ namespace TestFairyUnity
 		/// <returns>The session URL.</returns>
 		public static string sessionUrl()
 		{
-			using(AndroidJavaClass pluginClass = new AndroidJavaClass("com.testfairy.TestFairy")) {
+			using(AndroidJavaClass pluginClass = getTestFairyClass()) {
 				if(pluginClass != null) {
 					string url = pluginClass.CallStatic<string>("getSessionUrl");
 					return url;
@@ -239,7 +241,7 @@ namespace TestFairyUnity
 		/// <returns>TestFairy version string.</returns>
 		public static string version()
 		{
-			using(AndroidJavaClass pluginClass = new AndroidJavaClass("com.testfairy.TestFairy")) {
+			using(AndroidJavaClass pluginClass = getTestFairyClass()) {
 				if(pluginClass != null) {
 					string version = pluginClass.CallStatic<string>("getVersion");
 					return version;
@@ -255,7 +257,7 @@ namespace TestFairyUnity
 		/// <returns>Feedback string.</returns>
 		public static void sendUserFeedback(string feedback)
 		{
-			using(AndroidJavaClass pluginClass = new AndroidJavaClass("com.testfairy.TestFairy")) {
+			using(AndroidJavaClass pluginClass = getTestFairyClass()) {
 				if(pluginClass != null) {
 					pluginClass.CallStatic("sendUserFeedback", feedback);
 				}
@@ -267,13 +269,21 @@ namespace TestFairyUnity
 		/// </summary>
 		public static void takeScreenshot()
 		{
-			using(AndroidJavaClass pluginClass = new AndroidJavaClass("com.testfairy.TestFairy")) {
+			using(AndroidJavaClass pluginClass = getTestFairyClass()) {
 				if(pluginClass != null) {
 					pluginClass.CallStatic("takeScreenshot");
 				}
 			}
 		}
 		
+		private static AndroidJavaClass getTestFairyClass() {
+			if (testfairy == null) {
+				testfairy = new AndroidJavaClass("com.testfairy.TestFairy")
+			}
+
+			return testfairy;
+		}
+
 		#endif
 	}
 }
