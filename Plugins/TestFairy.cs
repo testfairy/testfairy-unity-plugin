@@ -7,7 +7,7 @@ namespace TestFairyUnity
 {
 	public class TestFairy : MonoBehaviour
 	{
-		#if UNITY_IPHONE		
+		#if UNITY_IPHONE
 		
 		[DllImport("__Internal")]
 		private static extern void TestFairy_begin(string APIKey);
@@ -141,7 +141,7 @@ namespace TestFairyUnity
 
 		#elif UNITY_ANDROID
 
-	    void Start () {
+		void Start () {
 			AndroidJNI.AttachCurrentThread();
 		}
 
@@ -259,7 +259,7 @@ namespace TestFairyUnity
 				if(pluginClass != null) {
 					pluginClass.CallStatic("sendUserFeedback", feedback);
 				}
-			}			
+			}
 		}
 
 		/// <summary>
