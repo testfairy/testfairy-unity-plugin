@@ -3,5 +3,6 @@ language: php
 sudo: false
 
 script:
+  - # script is simply making a rightly named zip file
   - zip -rp9 "TestFairySDK-${TRAVIS_TAG}-Unity.zip" Plugins
 
