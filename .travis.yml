@@ -1,0 +1,7 @@
+language: php
+
+sudo: false
+
+script:
+  - zip -rp9 "TestFairySDK-${TRAVIS_TAG}-Unity.zip" Plugins
+
