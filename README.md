@@ -4,7 +4,7 @@
 
 2. Unpack the zip on your disk.
  
-3. Drag **TestFairy.cs** and **iOS** into your Project under `Assets/Plugins`. If you don't have Plugins, you can drag the entire folder onto your project. Use `Assets -> Reveal in Finder` to locate your project on disk.
+3. Drag **TestFairy.cs** and **iOS** into your Project under `Assets/Plugins`. If you don't have Plugins, you can drag the entire folder onto your project. 
 
   ![Step 1](/Images/step1.png)
   
