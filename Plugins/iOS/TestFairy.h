@@ -6,9 +6,25 @@
 /**
  * Initialize a TestFairy session.
  *
- * @param APIKey Your key as given to you in your TestFairy account
+ * @param appToken Your key as given to you in your TestFairy account
  */
-+ (void)begin:(NSString *)APIKey;
++ (void)begin:(NSString *)appToken;
+
+/**
+ * Initialize a TestFairy session with options.
+ *
+ * @param appToken Your key as given to you in your TestFairy account
+ * @param options A dictionary of options controlling the current session
+ */
++ (void)begin:(NSString *)appToken withOptions:(NSDictionary *)options;
+
+/**
+ * Change the server endpoint for use with on-premise hosting. Please
+ * contact support or sales for more information. Must be called before begin
+ *
+ * @param serverOverride
+ */
++ (void)setServerEndpoint:(NSString *)serverOverride;
 
 /**
  * Returns SDK version (x.x.x) string
@@ -24,6 +40,13 @@
  *
  */
 + (void)hideView:(UIView *)view;
+
+/**
+ * Hides a specific html element from appearing in your UIWebView
+ *
+ * @param selector The specific selector you wish to hide from screenshots. Multiple selectors can be comma separated
+ */
++ (void)hideWebViewElements:(NSString *)selector;
 
 /**
  * Pushes the feedback view controller. Hook a button
@@ -73,6 +96,27 @@
 + (void)setCorrelationId:(NSString *)correlationId;
 
 /**
+ * Sets a correlation identifier for this session. This value can
+ * be looked up via web dashboard. For example, setting correlation
+ * to the value of the user-id after they logged in. Can be called
+ * only once per session (subsequent calls will be ignored.)
+ *
+ * @param correlationId Id for the current session
+ */
++ (void)identify:(NSString *)correlationId;
+
+/**
+ * Sets a correlation identifier for this session. This value can
+ * be looked up via web dashboard. For example, setting correlation
+ * to the value of the user-id after they logged in. Can be called
+ * only once per session (subsequent calls will be ignored.)
+ *
+ * @param correlationId Id for the current session
+ * @param traits Attributes and custom attributes to be associated with this session
+ */
++ (void)identify:(NSString *)correlationId traits:(NSDictionary *)traits;
+
+/**
  * Pauses the current session. This method stops recoding of
  * the current session until resume has been called.
  *
@@ -118,3 +162,14 @@ extern "C" {
 #endif
 
 @end
+
+extern NSString *const TFSDKIdentityTraitNameKey;
+extern NSString *const TFSDKIdentityTraitEmailAddressKey;
+extern NSString *const TFSDKIdentityTraitBirthdayKey;
+extern NSString *const TFSDKIdentityTraitGenderKey;
+extern NSString *const TFSDKIdentityTraitPhoneNumberKey;
+extern NSString *const TFSDKIdentityTraitWebsiteAddressKey;
+extern NSString *const TFSDKIdentityTraitAgeKey;
+extern NSString *const TFSDKIdentityTraitSignupDateKey;
+extern NSString *const TFSDKEnableCrashReporterKey;
+

@@ -1,0 +1,14 @@
+language: php
+sudo: false
+script:
+  - zip -rp9 "TestFairySDK-${TRAVIS_TAG}-Unity.zip" Plugins
+
+deploy:
+  provider: releases
+  api_key:
+    secure: DeCE3UiQBTxbuSskkBjMXkdXKvxiiJoPfvNVR874wNB0BEoAm+ZYMN+9XPuIlKfl0Fpd7XktaAvXEn2xK1FO7OXcJYPP1GZbyLwkzBm/YNmi4dHWr9BvPJzqdhLIEGw56pxuc2I6DOVys63rIZE9g1Ob68sm6ampNNfQfaXwk1s=
+  file: TestFairySDK-${TRAVIS_TAG}-Unity.zip
+  skip_cleanup: true
+  on:
+    tags: true
+    all_branches: true
