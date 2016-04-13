@@ -153,7 +153,7 @@ namespace TestFairyUnity
 				activityContext = activityClass.GetStatic<AndroidJavaObject>("currentActivity");
 			}
 
-			using(AndroidJavaClass pluginClass = getTestFairyClass())) {
+			using(AndroidJavaClass pluginClass = getTestFairyClass()) {
 				if(pluginClass != null) {
 					pluginClass.CallStatic("begin", activityContext, APIKey);
 				}
@@ -269,16 +269,16 @@ namespace TestFairyUnity
 		/// </summary>
 		public static void takeScreenshot()
 		{
-			using(AndroidJavaClass pluginClass = getTestFairyClass()) {
-				if(pluginClass != null) {
-					pluginClass.CallStatic("takeScreenshot");
-				}
-			}
+			//using(AndroidJavaClass pluginClass = getTestFairyClass()) {
+			//	if(pluginClass != null) {
+			//		pluginClass.CallStatic("takeScreenshot");
+			//	}
+			//}
 		}
 		
 		private static AndroidJavaClass getTestFairyClass() {
 			if (testfairy == null) {
-				testfairy = new AndroidJavaClass("com.testfairy.TestFairy")
+				testfairy = new AndroidJavaClass("com.testfairy.TestFairy");
 			}
 
 			return testfairy;

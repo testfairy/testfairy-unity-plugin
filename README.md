@@ -4,7 +4,7 @@
 
 2. Unpack the zip on your disk.
  
-3. Drag **TestFairy.cs** and **iOS** into your Project under `Plugins`. If you don't have Plugins, you can drag the entire folder onto your project.
+3. Drag **TestFairy.cs**, **iOS** and **Android** into your Project under `Plugins`. If you don't have Plugins, you can drag the entire folder onto your project.
 
   ![Step 1](/Images/step1.png)
   
@@ -19,10 +19,32 @@
 6. Edit the newly created CSharp script, and add `using TestFairyUnity;` to the import section, and a call to `TestFairy.begin()` with your app token. You can find your app token in  [Account Settings](https://app.testfairy.com/settings/#apptoken) page.
 
   ![Step 4](/Images/step4.png)
-  
-7. Extra permissions are required for Android instrumentation. You can copy a version of your AndroidManifest.xml from `<root>/Temp/StagingArea/AndroidManifest.xml` into `<root>/Assets/Plugin/Android` directory. From here, edit `AndroidManifest.xml` with the following lines
+
 ```
+using UnityEngine;
+using System.Collections;
+using TestFairyUnity;
+
+public class mainCameraScript : MonoBehaviour {
+
+    // Use this for initialization
+    void Start () {
+        TestFairy.begin("0ddd54741fc830787fb8e1a8232a49733ce9759b");
+    }
+
+    ...
+}
+```
+  
+7. At minimum, TestFairy requires the `INTERNET` permission for your Android build. You can copy a version of your AndroidManifest.xml from `<root>/Temp/StagingArea/AndroidManifest.xml` into `<root>/Assets/Plugin/Android` directory. From here, edit `AndroidManifest.xml` with the following line
+
+```xml
 <uses-permission android:name="android.permission.INTERNET" />
+```
+
+Additional features may require extra persmissions given below
+
+```xml
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
@@ -36,7 +58,6 @@
 <uses-permission android:name="android.permission.CAMERA"/>
 <uses-feature android:glEsVersion="0x00020000" android:required="true"/>
 
-<!-- gps perms -->
 <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 <uses-permission android:name="android.permission.GET_TASKS"/>
