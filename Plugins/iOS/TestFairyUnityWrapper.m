@@ -21,6 +21,11 @@ void TestFairy_setCorrelationId(char *correlationId)
 	[TestFairy setCorrelationId:[NSString stringWithUTF8String:correlationId]];
 }
 
+void TestFairy_identify(char *correlationId)
+{
+	[TestFairy identify:[NSString stringWithUTF8String:correlationId]];
+}
+
 void TestFairy_pause()
 {
 	[TestFairy pause];
