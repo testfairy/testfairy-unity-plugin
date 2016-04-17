@@ -4,7 +4,7 @@
 
 2. Unpack the zip on your disk.
  
-3. Drag **TestFairy.cs**, **iOS** and **Android** into your Project under `Plugins`. If you don't have Plugins, you can drag the entire folder onto your project.
+3. Drag **TestFairy.cs**, **iOS** and **Android** into your Project under `Assets/Plugins`. If you don't have Plugins, you can drag the entire folder onto your project.
 
   ![Step 1](/Images/step1.png)
   
