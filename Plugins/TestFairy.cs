@@ -65,6 +65,18 @@ namespace TestFairyUnity
 			TestFairy_setCorrelationId(correlationId);
 		}
 
+		/// <summary>
+		/// Sets a correlation identifier for this session. This value can
+		/// be looked up via web dashboard. For example, setting correlation
+		/// to the value of the user-id after they logged in. Can be called
+		/// only once per session (subsequent calls will be ignored.)
+		/// </summary>
+		/// <param name="correlationId">Correlation value</param>
+		public static void identify(string correlationId)
+		{
+			TestFairy_identify(correlationId);
+		}
+
 		[DllImport("__Internal")]
 		private static extern void TestFairy_pause();
 
@@ -188,6 +200,20 @@ namespace TestFairyUnity
 			using(AndroidJavaClass pluginClass = getTestFairyClass()) {
 				if(pluginClass != null) {
 					pluginClass.CallStatic("setCorrelationId", correlationId);
+				}
+			}
+		}
+
+		/// </summary>
+		/// Sets a correlation identifier for this session. This value can be looked up via web dashboard. For
+		/// example, setting correlation to the value of the user-id after they logged in. Can be called only once per
+		/// session (subsequent calls will be ignored.)
+		/// </summary>
+		public static void identify(string correlationId)
+		{
+			using(AndroidJavaClass pluginClass = getTestFairyClass()) {
+				if(pluginClass != null) {
+					pluginClass.CallStatic("identify", correlationId);
 				}
 			}
 		}
