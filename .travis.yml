@@ -13,6 +13,8 @@ before_install:
   - echo yes | android update sdk --filter extra-android-m2repository --no-ui --force > /dev/null
 
 script:
+  - mkdir -p ./Plugins/Android/bridge/libs/
+  - cp ./Plugins/Android/testfairy-sdk.jar ./Plugins/Android/bridge/libs/testfairy-sdk.jar
   - ant -f ./Plugins/Android/bridge/build.xml jar
   - zip -rp9 "TestFairySDK-${TRAVIS_TAG}-Unity.zip" Plugins -x Plugins/Android/bridge\*
 
