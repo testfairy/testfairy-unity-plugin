@@ -1,7 +1,19 @@
 language: php
 sudo: false
+before_install:
+  - brew install ant
+  - wget -O /usr/local/android-sdk_r23.0.2-macosx.zip https://dl.google.com/android/android-sdk_r23.0.2-macosx.zip
+  - unzip -d /usr/local /usr/local/android-sdk_r23.0.2-macosx.zip
+  - export ANDROID_HOME=/usr/local/android-sdk-macosx
+  - export PATH=$PATH:$ANDROID_HOME/tools
+  - ( sleep 1 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk --all --no-ui --filter platform-tool,android-23,sysimg-23,build-tools-23.0.3,extra-android-support,sys-img-armeabi-v7a-android-19
+
+before_script:
+  - android update project -t android-23 -p android/.
+
 script:
-  - zip -rp9 "TestFairySDK-${TRAVIS_TAG}-Unity.zip" Plugins
+  - ant -f ./Plugins/Android/bridge/build.xml jar
+  - zip -rp9 "TestFairySDK-${TRAVIS_TAG}-Unity.zip" Plugins -x Plugins/Android/bridge\*
 
 deploy:
   provider: releases
@@ -11,4 +23,4 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
-    all_branches: true
+
