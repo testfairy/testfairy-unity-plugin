@@ -20,7 +20,6 @@ public class TestFairyBridge {
 	private static final DateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.getDefault());
 
 	public static void begin(Context context, String appToken) {
-		Log.i("TestFairy", "Begin " + appToken);
 		TestFairy.begin(context, appToken);
 	}
 

@@ -42,8 +42,6 @@ namespace TestFairyUnity
 		private static extern void TestFairy_takeScreenshot();
 
 #elif UNITY_ANDROID
-		private static AndroidJavaClass testfairy = null;
-
 		void Start () {
 			AndroidJNI.AttachCurrentThread();
 		}
