@@ -31,7 +31,7 @@
  
      // Use this for initialization
      void Start () {
-         TestFairy.begin("0ddd54741fc830787fb8e1a8232a49733ce9759b");
+         TestFairy.begin(/* PUT YOUR SDK APP TOKEN HERE, SEE COMMENT ABOVE */);
      }
  
      ...
