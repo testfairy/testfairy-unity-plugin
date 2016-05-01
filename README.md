@@ -50,7 +50,6 @@ Additional features may require extra persmissions given below
 <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 <uses-permission android:name="android.permission.BATTERY_STATS"/>
 <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-<uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
 
 <uses-permission android:name="android.permission.GET_TASKS"/>
 <uses-permission android:name="android.permission.READ_LOGS"/>
