@@ -20,39 +20,41 @@
 
   ![Step 4](/Images/step4.png)
 
-```
-using UnityEngine;
-using System.Collections;
-using TestFairyUnity;
-
-public class mainCameraScript : MonoBehaviour {
-
-    // Use this for initialization
-    void Start () {
-        TestFairy.begin("0ddd54741fc830787fb8e1a8232a49733ce9759b");
-    }
-
-    ...
-}
-```
+ Here is the code again, for easy copy-pasting:
+ 
+ ```
+ using UnityEngine;
+ using System.Collections;
+ using TestFairyUnity;
+ 
+ public class mainCameraScript : MonoBehaviour {
+ 
+     // Use this for initialization
+     void Start () {
+         TestFairy.begin("0ddd54741fc830787fb8e1a8232a49733ce9759b");
+     }
+ 
+     ...
+ }
+ ```
   
 7. At minimum, TestFairy requires the `INTERNET` and `ACCESS_NETWORK_STATE` permission for your Android build. You can copy a version of your AndroidManifest.xml from `<root>/Temp/StagingArea/AndroidManifest.xml` into `<root>/Assets/Plugin/Android` directory. From here, edit `AndroidManifest.xml` with the following line
 
-```xml
-<uses-permission android:name="android.permission.INTERNET" />
-<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-```
-
-Additional features may require extra persmissions given below
-
-```xml
-<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-<uses-permission android:name="android.permission.BATTERY_STATS"/>
-<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-
-<uses-permission android:name="android.permission.GET_TASKS"/>
-<uses-permission android:name="android.permission.READ_LOGS"/>
-```
+ ```xml
+ <uses-permission android:name="android.permission.INTERNET" />
+ <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+ ```
+ 
+ Additional features may require extra persmissions given below
+ 
+ ```xml
+ <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+ <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+ <uses-permission android:name="android.permission.BATTERY_STATS"/>
+ <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+ 
+ <uses-permission android:name="android.permission.GET_TASKS"/>
+ <uses-permission android:name="android.permission.READ_LOGS"/>
+ ```
 
 8. Save, build and run.
