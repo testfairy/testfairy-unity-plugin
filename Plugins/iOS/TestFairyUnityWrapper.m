@@ -111,7 +111,6 @@ void TestFairy_takeScreenshot()
 
 void TestFairy_setScreenName(char *name) {
 	NSString *value = name == NULL ? nil : [NSString stringWithUTF8String:name];
-	NSLog(@"Setting screen name: %@", value);
 	[TestFairy setScreenName:value];
 }
 
