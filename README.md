@@ -36,11 +36,15 @@ public class mainCameraScript : MonoBehaviour {
 }
 ```
   
-7. At minimum, TestFairy requires the `INTERNET` and `ACCESS_NETWORK_STATE` permission for your Android build. You can copy a version of your AndroidManifest.xml from `<root>/Temp/StagingArea/AndroidManifest.xml` into `<root>/Assets/Plugin/Android` directory. From here, edit `AndroidManifest.xml` with the following line
+7. At minimum, TestFairy requires the `INTERNET` and `ACCESS_NETWORK_STATE` permission for your Android build. You can copy a version of your AndroidManifest.xml from `<root>/Temp/StagingArea/AndroidManifest.xml` into `<root>/Assets/Plugin/Android` directory. From here, edit `AndroidManifest.xml` with the following lines. Moreover, you will need to add two activities which allow Android users to provide feedback, or receive a message when a new build is available.
 
 ```xml
 <uses-permission android:name="android.permission.INTERNET" />
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+<application>
+    <activity android:name="com.testfairy.activities.ProvideFeedbackActivity" android:configChanges="orientation|screenSize"/>
+    <activity android:name="com.testfairy.activities.AutoUpdateActivity" android:configChanges="orientation|screenSize"/>
+</application>
 ```
 
 Additional features may require extra persmissions given below
