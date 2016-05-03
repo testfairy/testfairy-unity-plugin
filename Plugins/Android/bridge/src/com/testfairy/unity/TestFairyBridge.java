@@ -57,6 +57,9 @@ public class TestFairyBridge {
 		TestFairy.pause();
 	}
 
+	public static void setScreenName(String name) {
+		TestFairy.setScreenName(name);
+	}
 
 	public static HashMap<String, Object> toHashMap(String traits) {
 		HashMap<String, Object> identityTraits = new HashMap<String, Object>();
