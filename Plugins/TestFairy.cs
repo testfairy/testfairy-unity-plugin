@@ -41,6 +41,8 @@ namespace TestFairyUnity
 		[DllImport("__Internal")]
 		private static extern void TestFairy_takeScreenshot();
 
+		[DllImport("__Internal")]
+		private static extern void TestFairy_setScreenName(string name);
 #elif UNITY_ANDROID && !UNITY_EDITOR
 		void Start () {
 			AndroidJNI.AttachCurrentThread();
@@ -255,6 +257,18 @@ namespace TestFairyUnity
 #elif UNITY_ANDROID && !UNITY_EDITOR
 			// TODO: no-op on android
 #endif
+		}
+
+		public static void setScreenName(string name) {
+#if UNITY_IPHONE
+			TestFairy_setScreenName(name);
+#elif UNITY_ANDROID
+			using(AndroidJavaClass pluginClass = getTestFairyClass()) {
+				if(pluginClass != null) {
+					pluginClass.CallStatic("setScreenName", name);
+				}
+			}
+#endif			
 		}
 	}
 }

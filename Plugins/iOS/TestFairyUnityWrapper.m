@@ -108,3 +108,9 @@ void TestFairy_takeScreenshot()
 {
 	[TestFairy takeScreenshot];
 }
+
+void TestFairy_setScreenName(char *name) {
+	NSString *value = name == NULL ? nil : [NSString stringWithUTF8String:name];
+	[TestFairy setScreenName:value];
+}
+
