@@ -1,63 +1,21 @@
 # TestFairy plugin for Unity
 
-1. Download the latest [TestFairy plugin for Unity](https://app.testfairy.com/sdk/ios/download/latest/unity/).
+For class reference, installation and more information, please visit 
+[Unity integration document](http://docs.testfairy.com/Integrations/Unity.html) on TestFairy.
 
-2. Unpack the zip on your disk.
- 
-3. Drag **TestFairy.cs**, **iOS** and **Android** into your Project under `Assets/Plugins`. If you don't have Plugins, you can drag the entire folder onto your project.
+License
+=======
 
-  ![Step 1](/Images/step1.png)
-  
-4. Open `mainCamera` in Inspector by clicking on it, and then click on `Add Component`. Note: you can add TestFairy script to any game object. TestFairy is a singleton so no harm is done.
+    Copyright 2016 TestFairy.
 
-  ![Step 2](/Images/step2.png)
-  
-5. Type in the name of the script, for example `mainCameraScript`, choose `CSharp` and click on `Create and Add`.
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
-  ![Step 3](/Images/step3.png)
-  
-6. Edit the newly created CSharp script, and add `using TestFairyUnity;` to the import section, and a call to `TestFairy.begin()` with your app token. You can find your app token in  [Account Settings](https://app.testfairy.com/settings/#apptoken) page.
+       http://www.apache.org/licenses/LICENSE-2.0
 
-  ![Step 4](/Images/step4.png)
-
-```
-using UnityEngine;
-using System.Collections;
-using TestFairyUnity;
-
-public class mainCameraScript : MonoBehaviour {
-
-    // Use this for initialization
-    void Start () {
-        TestFairy.begin("0ddd54741fc830787fb8e1a8232a49733ce9759b");
-    }
-
-    ...
-}
-```
-  
-7. At minimum, TestFairy requires the `INTERNET` and `ACCESS_NETWORK_STATE` permission for your Android build. You can copy a version of your AndroidManifest.xml from `<root>/Temp/StagingArea/AndroidManifest.xml` into `<root>/Assets/Plugin/Android` directory. From here, edit `AndroidManifest.xml` with the following lines. Moreover, you will need to add two activities which allow Android users to provide feedback, or receive a message when a new build is available.
-
-```xml
-<uses-permission android:name="android.permission.INTERNET" />
-<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-<application>
-    <activity android:name="com.testfairy.activities.ProvideFeedbackActivity" android:configChanges="orientation|screenSize"/>
-    <activity android:name="com.testfairy.activities.AutoUpdateActivity" android:configChanges="orientation|screenSize"/>
-</application>
-```
-
-Additional features may require extra persmissions given below
-
-```xml
-<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-<uses-permission android:name="android.permission.BATTERY_STATS"/>
-<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-<uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
-
-<uses-permission android:name="android.permission.GET_TASKS"/>
-<uses-permission android:name="android.permission.READ_LOGS"/>
-```
-
-8. Save, build and run.
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.

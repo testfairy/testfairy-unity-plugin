@@ -7,7 +7,7 @@ namespace TestFairyUnity
 {
 	public class TestFairy : MonoBehaviour
 	{
-#if UNITY_IPHONE
+#if UNITY_IPHONE && !UNITY_EDITOR
 		[DllImport("__Internal")]
 		private static extern void TestFairy_begin(string APIKey);
 
@@ -43,7 +43,7 @@ namespace TestFairyUnity
 
 		[DllImport("__Internal")]
 		private static extern void TestFairy_setScreenName(string name);
-#elif UNITY_ANDROID
+#elif UNITY_ANDROID && !UNITY_EDITOR
 		void Start () {
 			AndroidJNI.AttachCurrentThread();
 		}
@@ -59,9 +59,9 @@ namespace TestFairyUnity
 		/// <param name="APIKey"></param>	
 		public static void begin(string APIKey)
 		{
-#if UNITY_IPHONE
+#if UNITY_IPHONE && !UNITY_EDITOR
 			TestFairy_begin(APIKey);
-#elif UNITY_ANDROID
+#elif UNITY_ANDROID && !UNITY_EDITOR
 			AndroidJavaObject activityContext = null;
 			using(AndroidJavaClass activityClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
 				activityContext = activityClass.GetStatic<AndroidJavaObject>("currentActivity");
@@ -83,9 +83,9 @@ namespace TestFairyUnity
 		/// </summary>
 		public static void pushFeedbackController()
 		{
-#if UNITY_IPHONE
+#if UNITY_IPHONE && !UNITY_EDITOR
 			TestFairy_pushFeedbackController();
-#elif UNITY_ANDROID
+#elif UNITY_ANDROID && !UNITY_EDITOR
 			// TODO: No-op on Android
 #endif
 		}
@@ -99,9 +99,9 @@ namespace TestFairyUnity
 		/// <param name="name">Name of checkpoint, make it short.</param>
 		public static void checkpoint(string name)
 		{
-#if UNITY_IPHONE
+#if UNITY_IPHONE && !UNITY_EDITOR
 			TestFairy_checkpoint(name);
-#elif UNITY_ANDROID
+#elif UNITY_ANDROID && !UNITY_EDITOR
 			using(AndroidJavaClass pluginClass = getTestFairyClass()) {
 				if(pluginClass != null) {
 					pluginClass.CallStatic("addCheckpoint", name);
@@ -119,9 +119,9 @@ namespace TestFairyUnity
 		/// <param name="correlationId">Correlation value</param>
 		public static void setCorrelationId(string correlationId)
 		{
-#if UNITY_IPHONE
+#if UNITY_IPHONE && !UNITY_EDITOR
 			TestFairy_setCorrelationId(correlationId);
-#elif UNITY_ANDROID
+#elif UNITY_ANDROID && !UNITY_EDITOR
 			using(AndroidJavaClass pluginClass = getTestFairyClass()) {
 				if(pluginClass != null) {
 					pluginClass.CallStatic("setCorrelationId", correlationId);
@@ -150,9 +150,9 @@ namespace TestFairyUnity
 					traitsString += encodedKey + "=" + type + "/" + encodedValue + "\n";
 				}
 			}
-#if UNITY_IPHONE
+#if UNITY_IPHONE && !UNITY_EDITOR
 			TestFairy_identify(correlationId, traitsString);
-#elif UNITY_ANDROID
+#elif UNITY_ANDROID && !UNITY_EDITOR
 			using(AndroidJavaClass pluginClass = getTestFairyClass()) {
 				if(pluginClass != null) {
 					pluginClass.CallStatic("identify", correlationId, traitsString);
@@ -167,9 +167,9 @@ namespace TestFairyUnity
 		/// </summary>
 		public static void pause()
 		{
-#if UNITY_IPHONE
+#if UNITY_IPHONE && !UNITY_EDITOR
 			TestFairy_pause();
-#elif UNITY_ANDROID
+#elif UNITY_ANDROID && !UNITY_EDITOR
 			using(AndroidJavaClass pluginClass = getTestFairyClass()) {
 				if(pluginClass != null) {
 					pluginClass.CallStatic("pause");
@@ -184,9 +184,9 @@ namespace TestFairyUnity
 		/// </summary>
 		public static void resume()
 		{
-#if UNITY_IPHONE
+#if UNITY_IPHONE && !UNITY_EDITOR
 			TestFairy_resume();
-#elif UNITY_ANDROID
+#elif UNITY_ANDROID && !UNITY_EDITOR
 			using(AndroidJavaClass pluginClass = getTestFairyClass()) {
 				if(pluginClass != null) {
 					pluginClass.CallStatic("resume");
@@ -203,9 +203,9 @@ namespace TestFairyUnity
 		public static string sessionUrl()
 		{
 			string sessionUrl = null;
-#if UNITY_IPHONE
+#if UNITY_IPHONE && !UNITY_EDITOR
 			sessionUrl = TestFairy_sessionUrl();
-#elif UNITY_ANDROID
+#elif UNITY_ANDROID && !UNITY_EDITOR
 			// TODO: no-op on android
 #endif
 			return sessionUrl;
@@ -218,9 +218,9 @@ namespace TestFairyUnity
 		public static string version()
 		{
 			string version = null;
-#if UNITY_IPHONE
+#if UNITY_IPHONE && !UNITY_EDITOR
 			version = TestFairy_version ();
-#elif UNITY_ANDROID
+#elif UNITY_ANDROID && !UNITY_EDITOR
 			using(AndroidJavaClass pluginClass = getTestFairyClass()) {
 				if(pluginClass != null) {
 					version = pluginClass.CallStatic<string>("getVersion");
@@ -236,9 +236,9 @@ namespace TestFairyUnity
 		/// <returns>Feedback string.</returns>
 		public static void sendUserFeedback(string feedback)
 		{
-#if UNITY_IPHONE
+#if UNITY_IPHONE && !UNITY_EDITOR
 			TestFairy_sendUserFeedback(feedback);
-#elif UNITY_ANDROID
+#elif UNITY_ANDROID && !UNITY_EDITOR
 			using(AndroidJavaClass pluginClass = getTestFairyClass()) {
 				if(pluginClass != null) {
 					pluginClass.CallStatic("sendUserFeedback", feedback);
@@ -252,9 +252,9 @@ namespace TestFairyUnity
 		/// </summary>
 		public static void takeScreenshot()
 		{
-#if UNITY_IPHONE
+#if UNITY_IPHONE && !UNITY_EDITOR
 			TestFairy_takeScreenshot();
-#elif UNITY_ANDROID
+#elif UNITY_ANDROID && !UNITY_EDITOR
 			// TODO: no-op on android
 #endif
 		}
