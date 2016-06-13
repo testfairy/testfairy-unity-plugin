@@ -260,9 +260,9 @@ namespace TestFairyUnity
 		}
 
 		public static void setScreenName(string name) {
-#if UNITY_IPHONE
+#if UNITY_IPHONE && !UNITY_EDITOR
 			TestFairy_setScreenName(name);
-#elif UNITY_ANDROID
+#elif UNITY_ANDROID && !UNITY_EDITOR
 			using(AndroidJavaClass pluginClass = getTestFairyClass()) {
 				if(pluginClass != null) {
 					pluginClass.CallStatic("setScreenName", name);
