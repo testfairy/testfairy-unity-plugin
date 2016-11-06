@@ -72,7 +72,7 @@ void TestFairy_identify(char *correlationId, char *traits)
 			}
 		}
 
-		[TestFairy identify:[NSString stringWithUTF8String:correlationId] traits:identityTraits];
+		[TestFairy identify:coId traits:identityTraits];
 	}
 }
 
