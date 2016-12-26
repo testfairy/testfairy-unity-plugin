@@ -14,8 +14,14 @@ void TestFairy_pushFeedbackController()
 
 void TestFairy_checkpoint(char *name)
 {
-	NSString *value = name == NULL ? @"(null)" : [NSString stringWithUTF8String:name];
+	NSString *value = name == NULL ? @"" : [NSString stringWithUTF8String:name];
 	[TestFairy checkpoint:value];
+}
+
+void TestFairy_setServerEndpoint(char *serverOverride)
+{
+	NSString *value = serverOverride == NULL ? nil : [NSString stringWithUTF8String:serverOverride];
+	[TestFairy setServerEndpoint:value];
 }
 
 void TestFairy_setCorrelationId(char *correlationId)
@@ -86,6 +92,11 @@ void TestFairy_resume()
 	[TestFairy resume];
 }
 
+void TestFairy_stop()
+{
+	// No Op
+}
+
 const char * TestFairy_sessionUrl()
 {
 	const char *sessionUrl = [[TestFairy sessionUrl] UTF8String];
@@ -100,7 +111,7 @@ const char * TestFairy_version()
 
 void TestFairy_sendUserFeedback(char *feedback)
 {
-	NSString *value = feedback == NULL ? @"(null)" : [NSString stringWithUTF8String:feedback];
+	NSString *value = feedback == NULL ? @"" : [NSString stringWithUTF8String:feedback];
 	[TestFairy sendUserFeedback:value];
 }
 
@@ -114,3 +125,7 @@ void TestFairy_setScreenName(char *name) {
 	[TestFairy setScreenName:value];
 }
 
+void TestFairy_log(char *message) {
+	NSString *value = message == NULL ? @"" : [NSString stringWithUTF8String:message];
+	TFLog(@"%@", value);
+}
