@@ -18,6 +18,9 @@ namespace TestFairyUnity
 		private static extern void TestFairy_checkpoint(string name);
 
 		[DllImport("__Internal")]
+		private static extern void TestFairy_setServerEndpoint(string endpoint);
+
+		[DllImport("__Internal")]
 		private static extern void TestFairy_setCorrelationId(string correlationId);
 
 		[DllImport("__Internal")]
@@ -28,6 +31,9 @@ namespace TestFairyUnity
 
 		[DllImport("__Internal")]
 		private static extern void TestFairy_resume();
+
+		[DllImport("__Internal")]
+		private static extern void TestFairy_stop();
 
 		[DllImport("__Internal")]
 		private static extern string TestFairy_sessionUrl();
@@ -43,6 +49,9 @@ namespace TestFairyUnity
 
 		[DllImport("__Internal")]
 		private static extern void TestFairy_setScreenName(string name);
+
+		[DllImport("__Internal")]
+		private static extern void TestFairy_log(string name);
 #elif UNITY_ANDROID && !UNITY_EDITOR
 		void Start () {
 			AndroidJNI.AttachCurrentThread();
@@ -87,6 +96,25 @@ namespace TestFairyUnity
 			TestFairy_pushFeedbackController();
 #elif UNITY_ANDROID && !UNITY_EDITOR
 			// TODO: No-op on Android
+#endif
+		}
+
+		/// <summary>
+		/// Change the server endpoint for use with on-premise hosting. Please
+		/// contact support or sales for more information. Must be called 
+		/// before begin
+		/// </summary>
+		/// <param name="endpoint">Server address for use with TestFairy</param>
+		public static void setServerEndpoint(string endpoint)
+		{
+#if UNITY_IPHONE && !UNITY_EDITOR
+			TestFairy_setServerEndpoint(endpoint);
+#elif UNITY_ANDROID && !UNITY_EDITOR
+			using(AndroidJavaClass pluginClass = getTestFairyClass()) {
+				if(pluginClass != null) {
+					pluginClass.CallStatic("setServerEndpoint", endpoint);
+				}
+			}
 #endif
 		}
 
@@ -180,7 +208,7 @@ namespace TestFairyUnity
 
 		/// <summary>
 		/// Resumes the recording of the current session. This method
-		/// resumes a session after it was paused.
+		/// resumes a session after it was paused or stopped.
 		/// </summary>
 		public static void resume()
 		{
@@ -190,6 +218,22 @@ namespace TestFairyUnity
 			using(AndroidJavaClass pluginClass = getTestFairyClass()) {
 				if(pluginClass != null) {
 					pluginClass.CallStatic("resume");
+				}
+			}
+#endif
+		}
+
+		/// <summary>
+		/// Stops the recording of the current session. 
+		/// </summary>
+		public static void stop()
+		{
+#if UNITY_IPHONE && !UNITY_EDITOR
+			TestFairy_stop();
+#elif UNITY_ANDROID && !UNITY_EDITOR
+			using(AndroidJavaClass pluginClass = getTestFairyClass()) {
+				if(pluginClass != null) {
+					pluginClass.CallStatic("stop");
 				}
 			}
 #endif
@@ -206,7 +250,11 @@ namespace TestFairyUnity
 #if UNITY_IPHONE && !UNITY_EDITOR
 			sessionUrl = TestFairy_sessionUrl();
 #elif UNITY_ANDROID && !UNITY_EDITOR
-			// TODO: no-op on android
+			using(AndroidJavaClass pluginClass = getTestFairyClass()) {
+				if(pluginClass != null) {
+					sessionUrl = pluginClass.CallStatic<string>("getSessionUrl");
+				}
+			}
 #endif
 			return sessionUrl;
 		}
@@ -269,6 +317,18 @@ namespace TestFairyUnity
 				}
 			}
 #endif			
+		}
+
+		public static void log(string message) {
+#if UNITY_IPHONE && !UNITY_EDITOR
+			TestFairy_log(message);
+#elif UNITY_ANDROID && !UNITY_EDITOR
+			using(AndroidJavaClass pluginClass = getTestFairyClass()) {
+				if(pluginClass != null) {
+					pluginClass.CallStatic("log", "TestFairyUnity", message);
+				}
+			}
+#endif
 		}
 	}
 }

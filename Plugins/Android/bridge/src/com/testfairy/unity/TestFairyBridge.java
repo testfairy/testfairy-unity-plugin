@@ -27,12 +27,20 @@ public class TestFairyBridge {
 		return TestFairy.getVersion();
 	}
 
+	public static String getSessionUrl() {
+		return TestFairy.getSessionUrl();
+	}
+
 	public static void sendUserFeedback(String feedback) {
 		TestFairy.sendUserFeedback(feedback);
 	}
 
 	public static void addCheckpoint(String name) {
 		TestFairy.addCheckpoint(name);
+	}
+
+	public static void addEvent(String name) {
+		TestFairy.addEvent(name);
 	}
 
 	public static void setCorrelationId(String correlationId) {
@@ -57,8 +65,20 @@ public class TestFairyBridge {
 		TestFairy.pause();
 	}
 
+	public static void stop() {
+		TestFairy.stop();
+	}
+
+	public static void log(String tag, String msg) {
+		TestFairy.log(tag, msg);
+	}
+
 	public static void setScreenName(String name) {
 		TestFairy.setScreenName(name);
+	}
+
+	public static void setServerEndpoint(String serverEndpoint) {
+		TestFairy.setServerEndpoint(serverEndpoint);
 	}
 
 	public static HashMap<String, Object> toHashMap(String traits) {
