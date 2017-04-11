@@ -81,6 +81,14 @@ public class TestFairyBridge {
 		TestFairy.setServerEndpoint(serverEndpoint);
 	}
 
+	public static void setUserId(String userId) {
+		TestFairy.setUserId(userId);
+	}
+
+	public static boolean setAttribute(String key, String value) {
+		return TestFairy.setAttribute(key, value);
+	}
+
 	public static HashMap<String, Object> toHashMap(String traits) {
 		HashMap<String, Object> identityTraits = new HashMap<String, Object>();
 		for (String attribute : traits.split("\n")) {

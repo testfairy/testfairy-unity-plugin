@@ -94,7 +94,7 @@ void TestFairy_resume()
 
 void TestFairy_stop()
 {
-	// No Op
+	[TestFairy stop];
 }
 
 const char * TestFairy_sessionUrl()
@@ -128,4 +128,32 @@ void TestFairy_setScreenName(char *name) {
 void TestFairy_log(char *message) {
 	NSString *value = message == NULL ? @"" : [NSString stringWithUTF8String:message];
 	TFLog(@"%@", value);
+}
+
+void TestFairy_hideWebViewElements(char *cssSelector) {
+	if (cssSelector == NULL) {
+		return;
+	}
+
+	NSString *value = [NSString stringWithUTF8String:cssSelector];
+	[TestFairy hideWebViewElements:value];
+}
+
+void TestFairy_setUserId(char *userId) {
+	if (userId == NULL) {
+		return;
+	}
+
+	NSString *value = [NSString stringWithUTF8String:userId];
+	[TestFairy setUserId:value];
+}
+
+bool TestFairy_setAttribute(char *aKey, char *aValue) {
+	if (aKey == NULL || aValue == NULL) {
+		return false;
+	}
+
+	NSString *key = [NSString stringWithUTF8String:aKey];
+	NSString *value = [NSString stringWithUTF8String:aValue];
+	return [TestFairy setAttribute:key withValue:value];
 }

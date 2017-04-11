@@ -52,6 +52,15 @@ namespace TestFairyUnity
 
 		[DllImport("__Internal")]
 		private static extern void TestFairy_log(string name);
+
+		[DllImport("__Internal")]
+		private static extern void TestFairy_hideWebViewElements(string cssSelector);
+
+		[DllImport("__Internal")]
+		private static extern void TestFairy_setUserId(string userId);
+
+		[DllImport("__Internal")]
+		private static extern bool TestFairy_setAttribute(string aKey, string aValue);
 #elif UNITY_ANDROID && !UNITY_EDITOR
 		void Start () {
 			AndroidJNI.AttachCurrentThread();
@@ -316,7 +325,7 @@ namespace TestFairyUnity
 					pluginClass.CallStatic("setScreenName", name);
 				}
 			}
-#endif			
+#endif
 		}
 
 		public static void log(string message) {
@@ -329,6 +338,40 @@ namespace TestFairyUnity
 				}
 			}
 #endif
+		}
+
+		public static void hideWebViewElements(string cssSelector) {
+#if UNITY_IPHONE && !UNITY_EDITOR
+			TestFairy_hideWebViewElements(cssSelector);
+#elif UNITY_ANDROID && !UNITY_EDITOR
+			// no op on Android
+#endif			
+		}
+
+		public static void setUserId(string userId) {
+#if UNITY_IPHONE && !UNITY_EDITOR
+			TestFairy_setUserId(userId);
+#elif UNITY_ANDROID && !UNITY_EDITOR
+			using(AndroidJavaClass pluginClass = getTestFairyClass()) {
+				if(pluginClass != null) {
+					pluginClass.CallStatic("setUserId", "TestFairyUnity", userId);
+				}
+			}
+#endif			
+		}
+
+		public static bool setAttribute(string aKey, string aValue) {
+			bool added = false;
+#if UNITY_IPHONE && !UNITY_EDITOR
+			added = TestFairy_setAttribute(aKey, aValue);
+#elif UNITY_ANDROID && !UNITY_EDITOR
+			using(AndroidJavaClass pluginClass = getTestFairyClass()) {
+				if(pluginClass != null) {
+					added = pluginClass.CallStatic<bool>("setAttribute", "TestFairyUnity", aKey, aValue);
+				}
+			}
+#endif
+			return added;
 		}
 	}
 }
