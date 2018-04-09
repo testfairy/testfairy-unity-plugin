@@ -43,6 +43,10 @@ public class TestFairyBridge {
 		TestFairy.addEvent(name);
 	}
 
+	public static void showFeedbackForm() {
+		TestFairy.showFeedbackForm();
+	}
+
 	public static void setCorrelationId(String correlationId) {
 		TestFairy.setCorrelationId(correlationId);
 	}

@@ -74,7 +74,7 @@ namespace TestFairyUnity
 		/// <summary>
 		/// Initialize a TestFairy session.
 		/// </summary>
-		/// <param name="APIKey"></param>	
+		/// <param name="APIKey"></param>
 		public static void begin(string APIKey)
 		{
 #if UNITY_IPHONE && !UNITY_EDITOR
@@ -104,13 +104,17 @@ namespace TestFairyUnity
 #if UNITY_IPHONE && !UNITY_EDITOR
 			TestFairy_pushFeedbackController();
 #elif UNITY_ANDROID && !UNITY_EDITOR
-			// TODO: No-op on Android
+			using(AndroidJavaClass pluginClass = getTestFairyClass()) {
+				if(pluginClass != null) {
+					pluginClass.CallStatic("showFeedbackForm");
+				}
+			}
 #endif
 		}
 
 		/// <summary>
 		/// Change the server endpoint for use with on-premise hosting. Please
-		/// contact support or sales for more information. Must be called 
+		/// contact support or sales for more information. Must be called
 		/// before begin
 		/// </summary>
 		/// <param name="endpoint">Server address for use with TestFairy</param>
@@ -197,9 +201,9 @@ namespace TestFairyUnity
 			}
 #endif
 		}
-		
+
 		/// <summary>
-		/// Pauses the current session. This method stops recoding of 
+		/// Pauses the current session. This method stops recoding of
 		/// the current session until Resume() has been called.
 		/// </summary>
 		public static void pause()
@@ -233,7 +237,7 @@ namespace TestFairyUnity
 		}
 
 		/// <summary>
-		/// Stops the recording of the current session. 
+		/// Stops the recording of the current session.
 		/// </summary>
 		public static void stop()
 		{
@@ -286,7 +290,7 @@ namespace TestFairyUnity
 #endif
 			return version;
 		}
-		
+
 		/// <summary>
 		/// Sends a feedback to TestFairy
 		/// </summary>
@@ -345,7 +349,7 @@ namespace TestFairyUnity
 			TestFairy_hideWebViewElements(cssSelector);
 #elif UNITY_ANDROID && !UNITY_EDITOR
 			// no op on Android
-#endif			
+#endif
 		}
 
 		public static void setUserId(string userId) {
@@ -357,7 +361,7 @@ namespace TestFairyUnity
 					pluginClass.CallStatic("setUserId", "TestFairyUnity", userId);
 				}
 			}
-#endif			
+#endif
 		}
 
 		public static bool setAttribute(string aKey, string aValue) {
