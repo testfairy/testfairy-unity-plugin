@@ -59,9 +59,16 @@
  * to this method to allow users to provide feedback about the current
  * session. All feedback will appear in your build report page, and in
  * the recorded session page.
- *
  */
-+ (void)pushFeedbackController;
++ (void)pushFeedbackController TF_DEPRECATED("Please refer to showFeedbackForm");
+
+/**
+ * Programmatically display the feedback form to users.
+ * Users can provide feedback about the current session.
+ * All feedback will appear in your build report page,
+ * and in the recorded session page.
+ */
++ (void)showFeedbackForm;
 
 /**
  * Send a feedback on behalf of the user. Call when using a in-house
@@ -214,6 +221,12 @@
  *
  */
 + (void)attachFile:(NSURL *)file;
+
+/**
+ * Query to see if the previous session crashed. Can be called before or
+ * after calling begin.
+ */
++ (BOOL)didLastSessionCrash;
 
 @end
 
