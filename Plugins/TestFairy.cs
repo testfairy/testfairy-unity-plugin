@@ -358,7 +358,7 @@ namespace TestFairyUnity
 #elif UNITY_ANDROID && !UNITY_EDITOR
 			using(AndroidJavaClass pluginClass = getTestFairyClass()) {
 				if(pluginClass != null) {
-					pluginClass.CallStatic("setUserId", "TestFairyUnity", userId);
+					pluginClass.CallStatic("setUserId", userId);
 				}
 			}
 #endif
@@ -371,7 +371,7 @@ namespace TestFairyUnity
 #elif UNITY_ANDROID && !UNITY_EDITOR
 			using(AndroidJavaClass pluginClass = getTestFairyClass()) {
 				if(pluginClass != null) {
-					added = pluginClass.CallStatic<bool>("setAttribute", "TestFairyUnity", aKey, aValue);
+					added = pluginClass.CallStatic<bool>("setAttribute", aKey, aValue);
 				}
 			}
 #endif
