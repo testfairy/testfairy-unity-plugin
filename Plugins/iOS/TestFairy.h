@@ -20,8 +20,6 @@
  * Callback when session length has reached. For example, if your session
  * is set to maximum of 10 minutes, you will get a callback if such a limit
  * was reached. You can start a new session if you wish to do so.
- *
- * @param secondsFromStartSession
  */
 - (void)sessionLengthReached:(float)secondsFromStartSession;
 
@@ -35,8 +33,6 @@
 /**
  * Callback when there is an update available. Either this method is called,
  * or noAutoUpdateAvailable() is called.
- *
- * @param url
  */
 - (void)autoUpdateAvailable:(NSString *)url;
 
@@ -80,6 +76,11 @@
  * 			- enableCrashReporter: @YES / @NO to enable crash handling. Default is @YES
  */
 + (void)begin:(NSString *)appToken withOptions:(NSDictionary *)options;
+
+/**
+ * Initialize the TestFairy SDK with only crash handling. No sessions will be recorded.
+ */
++ (void)installCrashHandler:(NSString *)appToken;
 
 /**
  * Change the server endpoint for use with on-premise hosting. Please
@@ -350,6 +351,13 @@
 + (void)disableFeedbackForm;
 
 /**
+ * Disable auto updates for this build. Even if there's a newer
+ * build available through TestFairy, ignore it, and continue
+ * using the current build. Must be called before begin
+ */
++ (void)disableAutoUpdate;
+
+/**
  * Sets the maximum recording time. Minimum value is 60 seconds,
  * else the value defined in the build settings will be used. The
  * maximum value is the lowest value between this value and the
@@ -383,7 +391,16 @@
  * @param appToken App token as used with begin()
  * @param callback to receive asynchornous response. Response dictionary can be nil
  */
-+ (void)getDistributionStatus:(NSString *)appToken callback:(void(^)(NSDictionary<NSString *, NSString *> *, NSError*))callaback;
++ (void)getDistributionStatus:(NSString *)appToken callback:(void(^)(NSDictionary<NSString *, NSString *> *, NSError*))callback;
+
+/**
+ * Enable end-to-end encryption for this session. Screenshots and logs will be encrypted using
+ * this RSA key. Please refer to the documentation to learn more about the subject and how
+ * to create public/private key pair.
+ *
+ * @param publicKey RSA Public Key converted to DER format and encoded in base64
+ */
++ (void)setPublicKey:(NSString *)publicKey;
 
 /**
  * Set the delegate object to listent to TestFairy events. See @TestFairySessionStateDelegate
@@ -395,6 +412,28 @@
  * Call this function to log your network events.
  */
 + (void)addNetwork:(NSURLSessionTask *)task error:(NSError *)error;
++ (void)addNetwork:(NSURL *)url
+			method:(NSString *)method
+			code:(int)code
+ startTimeInMillis:(long)startTime
+   endTimeInMillis:(long)endTime
+	   requestSize:(long)requestSize
+	  responseSize:(long)responseSize
+	  errorMessage:(NSString*)error;
+/**
+ * Send an NSError to TestFairy.
+ * Note, this function is limited to 5 errors.
+ * @param error NSError
+ * @param trace Stacktrace
+ */
++ (void)logError:(NSError *)error stacktrace:(NSArray *)trace;
++ (void)logError:(NSError *)error;
+
+/**
+ * Force crash (only for testing purposes)
+ */
++ (void)crash;
+
 @end
 
 #if __cplusplus
