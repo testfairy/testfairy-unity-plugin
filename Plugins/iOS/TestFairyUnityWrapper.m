@@ -1,4 +1,4 @@
-#import "TestFairy.h"
+#import <TestFairy/TestFairy.h>
 #import "TestFairyUnityWrapper.h"
 
 void TestFairy_begin(char *APIKey)

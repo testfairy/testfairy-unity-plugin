@@ -1,7 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Runtime.InteropServices;
+using UnityEngine;
+using UnityEngine.Networking;
 
 namespace TestFairyUnity
 {
@@ -67,7 +67,7 @@ namespace TestFairyUnity
 		}
 
 		private static AndroidJavaClass getTestFairyClass() {
-			return new AndroidJavaClass("com.testfairy.unity.TestFairyBridge");
+			return new AndroidJavaClass("com.testfairy.TestFairy");
 		}
 #endif
 
@@ -185,8 +185,8 @@ namespace TestFairyUnity
 				traitsString = "";
 				foreach(KeyValuePair<string, object> kvp in traits)
 				{
-					string encodedKey = WWW.EscapeURL(kvp.Key);
-					string encodedValue = WWW.EscapeURL(kvp.Value.ToString());
+					string encodedKey = UnityWebRequest.EscapeURL(kvp.Key);
+					string encodedValue = UnityWebRequest.EscapeURL(kvp.Value.ToString());
 					string type = kvp.Value.GetType().ToString();
 					traitsString += encodedKey + "=" + type + "/" + encodedValue + "\n";
 				}
@@ -259,17 +259,17 @@ namespace TestFairyUnity
 		/// <returns>The session URL.</returns>
 		public static string sessionUrl()
 		{
-			string sessionUrl = null;
+			string sessionUrlStr = null;
 #if UNITY_IPHONE && !UNITY_EDITOR
-			sessionUrl = TestFairy_sessionUrl();
+			sessionUrlStr = TestFairy_sessionUrl();
 #elif UNITY_ANDROID && !UNITY_EDITOR
 			using(AndroidJavaClass pluginClass = getTestFairyClass()) {
 				if(pluginClass != null) {
-					sessionUrl = pluginClass.CallStatic<string>("getSessionUrl");
+					sessionUrlStr = pluginClass.CallStatic<string>("getSessionUrl");
 				}
 			}
 #endif
-			return sessionUrl;
+            return sessionUrlStr;
 		}
 
 		/// <summary>
@@ -278,17 +278,17 @@ namespace TestFairyUnity
 		/// <returns>TestFairy version string.</returns>
 		public static string version()
 		{
-			string version = null;
+			string versionStr = null;
 #if UNITY_IPHONE && !UNITY_EDITOR
-			version = TestFairy_version ();
+			versionStr = TestFairy_version ();
 #elif UNITY_ANDROID && !UNITY_EDITOR
 			using(AndroidJavaClass pluginClass = getTestFairyClass()) {
 				if(pluginClass != null) {
-					version = pluginClass.CallStatic<string>("getVersion");
+					versionStr = pluginClass.CallStatic<string>("getVersion");
 				}
 			}
 #endif
-			return version;
+            return versionStr;
 		}
 
 		/// <summary>
