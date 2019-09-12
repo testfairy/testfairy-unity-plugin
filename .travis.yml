@@ -1,17 +1,19 @@
 language: node_js
 node_js:
   - '12'
-  
+
 install:
   - npm -g i testfairy-unity-asset-packager
 script:
   - zip -rp9 "TestFairySDK-${TRAVIS_TAG}-Unity.zip" Plugins
-  - testfairy-unity-asset-packager --debug --prepend 'Assets/Plugins' --output testfairy.unitypackage --overwrite Plugins 
+  - testfairy-unity-asset-packager --debug --prepend 'Assets/Plugins' --output TestFairySDK-${TRAVIS_TAG}-Unity.unitypackage --overwrite Plugins 
 deploy:
   provider: releases
   api_key:
     secure: DeCE3UiQBTxbuSskkBjMXkdXKvxiiJoPfvNVR874wNB0BEoAm+ZYMN+9XPuIlKfl0Fpd7XktaAvXEn2xK1FO7OXcJYPP1GZbyLwkzBm/YNmi4dHWr9BvPJzqdhLIEGw56pxuc2I6DOVys63rIZE9g1Ob68sm6ampNNfQfaXwk1s=
-  file: TestFairySDK-${TRAVIS_TAG}-Unity.zip
+  file: 
+    - TestFairySDK-${TRAVIS_TAG}-Unity.zip
+    - TestFairySDK-${TRAVIS_TAG}-Unity.unitypackage
   skip_cleanup: true
   on:
     tags: true
