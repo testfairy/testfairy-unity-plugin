@@ -1,4 +1,7 @@
-language: objective-c
+language: node_js
+node_js:
+  - '12'
+  
 install:
   - npm -g i testfairy-unity-asset-packager
 script:
