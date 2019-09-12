@@ -1,7 +1,9 @@
 language: objective-c
+install:
+  - npm -g i testfairy-unity-asset-packager
 script:
   - zip -rp9 "TestFairySDK-${TRAVIS_TAG}-Unity.zip" Plugins
-
+  - testfairy-unity-asset-packager --debug --prepend 'Assets/Plugins' --output testfairy.unitypackage --overwrite Plugins 
 deploy:
   provider: releases
   api_key:
