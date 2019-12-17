@@ -15,6 +15,9 @@ namespace TestFairyUnity
 		private static extern void TestFairy_pushFeedbackController();
 
 		[DllImport("__Internal")]
+		private static extern void TestFairy_showFeedbackForm(string appToken, bool takeScreenshot);
+
+		[DllImport("__Internal")]
 		private static extern void TestFairy_checkpoint(string name);
 
 		[DllImport("__Internal")]
@@ -107,6 +110,24 @@ namespace TestFairyUnity
 			using(AndroidJavaClass pluginClass = getTestFairyClass()) {
 				if(pluginClass != null) {
 					pluginClass.CallStatic("showFeedbackForm");
+				}
+			}
+#endif
+		}
+
+		public static showFeedbackForm(string appToken, bool takeScreenshot)
+		{
+#if UNITY_IPHONE && !UNITY_EDITOR
+			TestFairy_showFeedbackForm(appToken, takeScreenshot);
+#elif UNITY_ANDROID && !UNITY_EDITOR
+			AndroidJavaObject activityContext = null;
+			using(AndroidJavaClass activityClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
+				activityContext = activityClass.GetStatic<AndroidJavaObject>("currentActivity");
+			}
+
+			using(AndroidJavaClass pluginClass = getTestFairyClass()) {
+				if(pluginClass != null) {
+					pluginClass.CallStatic("showFeedbackForm", activityContext, appToken, takeScreenshot);
 				}
 			}
 #endif

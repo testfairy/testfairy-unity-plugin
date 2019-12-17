@@ -12,6 +12,12 @@ void TestFairy_pushFeedbackController()
 	[TestFairy pushFeedbackController];
 }
 
+void TestFairy_showFeedbackForm(char *appToken, BOOL takeScreenshot)
+{
+	NSString *value = appToken == NULL ? @"" : [NSString stringWithUTF8String:appToken];
+	[TestFairy showFeedbackForm:value takeScreenshot:takeScreenshot];
+}
+
 void TestFairy_checkpoint(char *name)
 {
 	NSString *value = name == NULL ? @"" : [NSString stringWithUTF8String:name];
@@ -42,7 +48,7 @@ void TestFairy_identify(char *correlationId, char *traits)
 
 		NSString *attris = [NSString stringWithUTF8String:traits];
 		NSArray *attributesArray = [attris componentsSeparatedByString:@"\n"];
-		
+
 		NSMutableDictionary *identityTraits = [[NSMutableDictionary alloc] init];
 		for (int i = 0; i < [attributesArray count]; i++) {
 			NSString *keyValuePair = [attributesArray objectAtIndex:i];
@@ -50,7 +56,7 @@ void TestFairy_identify(char *correlationId, char *traits)
 			if (range.location != NSNotFound) {
 				NSString *unescapedKey = [keyValuePair substringToIndex:range.location];
 				NSString *key =[[unescapedKey stringByReplacingOccurrencesOfString:@"+" withString:@" "] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-				
+
 				NSString *valueProperty = [keyValuePair substringFromIndex:range.location+1];
 				NSRange position = [valueProperty rangeOfString:@"/"];
 				if (position.location != NSNotFound) {
