@@ -115,7 +115,7 @@ namespace TestFairyUnity
 #endif
 		}
 
-		public static showFeedbackForm(string appToken, bool takeScreenshot)
+		public static void showFeedbackForm(string appToken, bool takeScreenshot)
 		{
 #if UNITY_IPHONE && !UNITY_EDITOR
 			TestFairy_showFeedbackForm(appToken, takeScreenshot);
