@@ -63,7 +63,41 @@ namespace TestFairyUnity
 		private static extern void TestFairy_setUserId(string userId);
 
 		[DllImport("__Internal")]
-		private static extern bool TestFairy_setAttribute(string aKey, string aValue);
+		private static extern void TestFairy_setAttribute(string aKey, string aValue);
+
+		[DllImport("__Internal")]
+		private static extern void TestFairy_enableCrashHandler();
+
+		[DllImport("__Internal")]
+		private static extern void TestFairy_disableCrashHandler();
+
+		[DllImport("__Internal")]
+		private static extern void TestFairy_enableFeedbackForm();
+
+		[DllImport("__Internal")]
+		private static extern void TestFairy_disableFeedbackForm();
+
+		[DllImport("__Internal")]
+		private static extern void TestFairy_enableMetric(string metric);
+
+		[DllImport("__Internal")]
+		private static extern void TestFairy_disableMetric(string metric);
+
+		[DllImport("__Internal")]
+		private static extern void TestFairy_enableAutoUpdate();
+
+		[DllImport("__Internal")]
+		private static extern void TestFairy_disableAutoUpdate();
+
+		[DllImport("__Internal")]
+		private static extern void TestFairy_enableCrashHandler();
+
+		[DllImport("__Internal")]
+		private static extern void TestFairy_disableVideo();
+
+		[DllImport("__Internal")]
+		private static extern void TestFairy_enableVideo(string policy, string quality, float framesPerSecond);
+
 #elif UNITY_ANDROID && !UNITY_EDITOR
 		void Start () {
 			AndroidJNI.AttachCurrentThread();
@@ -73,28 +107,6 @@ namespace TestFairyUnity
 			return new AndroidJavaClass("com.testfairy.TestFairy");
 		}
 #endif
-
-		/// <summary>
-		/// Initialize a TestFairy session.
-		/// </summary>
-		/// <param name="APIKey"></param>
-		public static void begin(string APIKey)
-		{
-#if UNITY_IPHONE && !UNITY_EDITOR
-			TestFairy_begin(APIKey);
-#elif UNITY_ANDROID && !UNITY_EDITOR
-			AndroidJavaObject activityContext = null;
-			using(AndroidJavaClass activityClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
-				activityContext = activityClass.GetStatic<AndroidJavaObject>("currentActivity");
-			}
-
-			using(AndroidJavaClass pluginClass = getTestFairyClass()) {
-				if(pluginClass != null) {
-					pluginClass.CallStatic("begin", activityContext, APIKey);
-				}
-			}
-#endif
-		}
 
 		/// <summary>
 		/// Push the feedback view controller. Hook a button to this method
@@ -290,7 +302,7 @@ namespace TestFairyUnity
 				}
 			}
 #endif
-            return sessionUrlStr;
+			return sessionUrlStr;
 		}
 
 		/// <summary>
@@ -309,7 +321,7 @@ namespace TestFairyUnity
 				}
 			}
 #endif
-            return versionStr;
+			return versionStr;
 		}
 
 		/// <summary>
@@ -338,18 +350,6 @@ namespace TestFairyUnity
 			TestFairy_takeScreenshot();
 #elif UNITY_ANDROID && !UNITY_EDITOR
 			// TODO: no-op on android
-#endif
-		}
-
-		public static void setScreenName(string name) {
-#if UNITY_IPHONE && !UNITY_EDITOR
-			TestFairy_setScreenName(name);
-#elif UNITY_ANDROID && !UNITY_EDITOR
-			using(AndroidJavaClass pluginClass = getTestFairyClass()) {
-				if(pluginClass != null) {
-					pluginClass.CallStatic("setScreenName", name);
-				}
-			}
 #endif
 		}
 
@@ -398,5 +398,121 @@ namespace TestFairyUnity
 #endif
 			return added;
 		}
+
+#if UNITY_IPHONE && !UNITY_EDITOR
+		public static void disableVideo() {
+			TestFairy_disableVideo();
+		}
+
+		public static void enableVideo(string policy, string quality, float framesPerSecond) {
+			TestFairy_enableVideo(policy, quality, framesPerSecond);
+		}
+
+		public static void disableCrashHandler() {
+			TestFairy_disableCrashHandler();
+		}
+
+		public static void enableMetric(string metric) {
+			TestFairy_enableMetric(metric);
+		}
+
+		public static void disableMetric(string metric) {
+			TestFairy_disableMetric(metric);
+		}
+
+		public static void enableFeedbackForm(string method) {
+			TestFairy_enableFeedbackForm(method);
+		}
+
+		public static void disableFeedbackForm() {
+			TestFairy_disableFeedbackForm();
+		}
+
+		public static void enableAutoUpdate() {
+			TestFairy_enableAutoUpdate();
+		}
+
+		public static void disableAutoUpdate() {
+			TestFairy_disableAutoUpdate();
+		}
+
+		public static void begin(string APIKey)
+		{
+			TestFairy_begin(APIKey);
+		}
+
+		public static void setScreenName(string name) {
+			TestFairy_setScreenName(name);
+		}
+
+#endif
+
+#if UNITY_ANDROID && !UNITY_EDITOR
+		public static void disableVideo() {
+			using (AndroidJavaClass pluginClass = getTestFairyClass()) {
+				if (pluginClass != null) {
+					pluginClass.CallStatic<void>("disableVideo");
+				}
+			}
+		}
+
+		public static void begin(string APIKey)
+		{
+			AndroidJavaObject activityContext = null;
+			using (AndroidJavaClass activityClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
+				activityContext = activityClass.GetStatic<AndroidJavaObject>("currentActivity");
+			}
+
+			using (AndroidJavaClass pluginClass = getTestFairyClass()) {
+				if (pluginClass != null) {
+					pluginClass.CallStatic("begin", activityContext, APIKey);
+				}
+			}
+		}
+
+		public static void setScreenName(string name) {
+			using (AndroidJavaClass pluginClass = getTestFairyClass()) {
+				if (pluginClass != null) {
+					pluginClass.CallStatic("setScreenName", name);
+				}
+			}
+		}
+#endif
+
+#if UNITY_EDITOR
+		public static void begin(string APIKey) {
+		}
+
+		public static void setScreenName(string name) {
+		}
+
+		public static void disableVideo() {
+		}
+
+		public static void enableVideo(string policy, string quality, float framesPerSecond) {
+		}
+
+		public static void disableCrashHandler() {
+		}
+
+		public static void enableMetric(string metric) {
+		}
+
+		public static void disableMetric(string metric) {
+		}
+
+		public static void enableFeedbackForm(string method) {
+		}
+
+		public static void disableFeedbackForm() {
+		}
+
+		public static void enableAutoUpdate() {
+		}
+
+		public static void disableAutoUpdate() {
+		}
+
+#endif
 	}
 }
