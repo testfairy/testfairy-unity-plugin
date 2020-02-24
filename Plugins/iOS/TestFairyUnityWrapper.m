@@ -163,3 +163,44 @@ bool TestFairy_setAttribute(char *aKey, char *aValue) {
 	NSString *value = [NSString stringWithUTF8String:aValue];
 	return [TestFairy setAttribute:key withValue:value];
 }
+
+void TestFairy_enableCrashHandler() {
+	[TestFairy enableCrashHandler];
+}
+
+void TestFairy_disableCrashHandler() {
+	[TestFairy disableCrashHandler];
+}
+
+void TestFairy_enableMetric(char *metric) {
+	NSString *value = metric == NULL ? @"" : [NSString stringWithUTF8String: metric];
+	[TestFairy enableMetric: value];
+}
+
+void TestFairy_disableMetric(char *metric) {
+	NSString *value = metric == NULL ? @"" : [NSString stringWithUTF8String: metric];
+	[TestFairy disableMetric: value];
+}
+
+void TestFairy_enableVideo(char *policy, char *quality, float framesPerSecond) {
+	NSString *policy_ = policy == NULL ? @"" : [NSString stringWithUTF8String: policy];
+	NSString *quality_ = quality == NULL ? @"" : [NSString stringWithUTF8String: quality];
+	[TestFairy enableVideo: policy_ quality: quality_ framesPerSecond: framesPerSecond];
+}
+
+void TestFairy_disableVideo() {
+	[TestFairy disableVideo];
+}
+
+void TestFairy_enableFeedbackForm(char *method) {
+	NSString *value = method  == NULL ? @"" : [NSString stringWithUTF8String: method];
+	[TestFairy enableFeedbackForm: value];
+}
+
+void TestFairy_disableFeedbackForm() {
+	[TestFairy disableFeedbackForm];
+}
+
+void TestFairy_disableAutoUpdate() {
+	[TestFairy disableAutoUpdate];
+}
