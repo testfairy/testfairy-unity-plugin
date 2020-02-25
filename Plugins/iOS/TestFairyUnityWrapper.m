@@ -201,10 +201,6 @@ void TestFairy_disableFeedbackForm() {
 	[TestFairy disableFeedbackForm];
 }
 
-void TestFairy_enableAutoUpdate() {
-	[TestFairy enableAutoUpdate];
-}
-
 void TestFairy_disableAutoUpdate() {
 	[TestFairy disableAutoUpdate];
 }
