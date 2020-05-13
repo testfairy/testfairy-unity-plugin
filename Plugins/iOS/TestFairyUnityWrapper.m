@@ -136,6 +136,14 @@ void TestFairy_log(char *message) {
 	TFLog(@"%@", value);
 }
 
+void TestFairy_logException(char *message, char *trace) {
+	NSString *messageString = message == NULL ? @"" : [NSString stringWithUTF8String:message];
+	NSString *traceString = trace == NULL ? @"" : [NSString stringWithUTF8String:trace];
+
+	NSError *error = [NSError errorWithDomain:@"com.testfairy.unity" code:-1 userInfo:@{NSLocalizedDescriptionKey: messageString}];
+	[TestFairy logError:error stacktrace:[traceString componentsSeparatedByString:@"\n"]];
+}
+
 void TestFairy_hideWebViewElements(char *cssSelector) {
 	if (cssSelector == NULL) {
 		return;

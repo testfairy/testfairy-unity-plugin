@@ -54,6 +54,9 @@ namespace TestFairyUnity
 		private static extern void TestFairy_log(string name);
 
 		[DllImport("__Internal")]
+		private static extern void TestFairy_logException(string name, string trace);
+
+		[DllImport("__Internal")]
 		private static extern void TestFairy_hideWebViewElements(string cssSelector);
 
 		[DllImport("__Internal")]
@@ -332,6 +335,18 @@ namespace TestFairyUnity
 			using(AndroidJavaClass pluginClass = getTestFairyClass()) {
 				if(pluginClass != null) {
 					pluginClass.CallStatic("log", "TestFairyUnity", message);
+				}
+			}
+#endif
+		}
+
+	public static void logException(string message, string stacktrace) {
+#if UNITY_IPHONE && !UNITY_EDITOR
+			TestFairy_logException(message, stacktrace);
+#elif UNITY_ANDROID && !UNITY_EDITOR
+			using(AndroidJavaClass pluginClass = getTestFairyClass()) {
+				if(pluginClass != null) {
+					pluginClass.CallStatic("logThrowable", "TestFairyUnity", stacktrace);
 				}
 			}
 #endif
