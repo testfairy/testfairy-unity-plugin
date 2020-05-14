@@ -400,6 +400,7 @@ namespace TestFairyUnity
 
 		public static void begin(string APIKey)
 		{
+			TestFairy.installUnityCrashHandler();
 			TestFairy_begin(APIKey);
 		}
 
@@ -463,6 +464,7 @@ namespace TestFairyUnity
 				activityContext = activityClass.GetStatic<AndroidJavaObject>("currentActivity");
 			}
 
+			TestFairy.installUnityCrashHandler();
 			TestFairy.callMethod("begin", activityContext, APIKey);
 		}
 
@@ -567,6 +569,14 @@ namespace TestFairyUnity
 			return false;
 		}
 #endif
+		private static void installUnityCrashHandler() {
+			Application.logMessageReceivedThreaded += TestFairy.logMsgRecvThreaded;
+		}
 
+		private static void logMsgRecvThreaded(string _condition, string _stackTrace, LogType _type) {
+			if (_type==LogType.Exception) {
+				TestFairy.logException(_condition, _stackTrace);
+			}
+		}
 	}
 }
