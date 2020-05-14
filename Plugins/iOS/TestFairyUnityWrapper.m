@@ -212,3 +212,7 @@ void TestFairy_disableFeedbackForm() {
 void TestFairy_disableAutoUpdate() {
 	[TestFairy disableAutoUpdate];
 }
+
+void TestFairy_crash() {
+	[TestFairy crash];
+}

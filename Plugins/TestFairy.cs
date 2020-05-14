@@ -356,6 +356,15 @@ namespace TestFairyUnity
 #endif
 		}
 
+		public static void crash() {
+#if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
+#elif UNITY_IPHONE && !UNITY_EDITOR
+			TestFairy_crash();
+#elif UNITY_ANDROID && !UNITY_EDITOR
+			// TestFairy.callMethod("crash");
+#endif
+		}
+
 		private static void installUnityCrashHandler() {
 			Application.logMessageReceivedThreaded += TestFairy.logMsgRecvThreaded;
 		}
@@ -494,6 +503,9 @@ namespace TestFairyUnity
 
 		[DllImport("__Internal")]
 		private static extern void TestFairy_enableVideo(string policy, string quality, float framesPerSecond);
+
+		[DllImport("__Internal")]
+		private static extern void TestFairy_crash();
 #endif
 	}
 }
