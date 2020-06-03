@@ -7,7 +7,7 @@ install:
 
 script:
   -
-  - ANDROID_SDK_VERSION=1.10.0
+  - ANDROID_SDK_VERSION=1.10.1
   -
   - # Prepare development Unity package
   - rm -f Plugins/Android/testfairy-android-sdk.aar
@@ -16,10 +16,10 @@ script:
   - testfairy-unity-asset-packager --debug --prepend 'Assets/Plugins' --output TestFairySDK-${TRAVIS_TAG}-Unity.unitypackage --overwrite Plugins 
   -
   - # Prepare production Unity package
-  - rm -f Plugins/Android/testfairy-android-sdk.aar
-  - curl -s -L https://bintray.com/testfairy/testfairy/download_file?file_path=com%2Ftestfairy%2Fproduction%2Fsdk%2Ftestfairy-android-production-sdk%2F${ANDROID_SDK_VERSION}%2Ftestfairy-android-production-sdk-${ANDROID_SDK_VERSION}.aar -o Plugins/Android/testfairy-android-sdk.aar
-  - zip -rp9 "TestFairySDK-${TRAVIS_TAG}-Production-Unity.zip" Plugins
-  - testfairy-unity-asset-packager --debug --prepend 'Assets/Plugins' --output TestFairySDK-${TRAVIS_TAG}-Production-Unity.unitypackage --overwrite Plugins 
+  - #rm -f Plugins/Android/testfairy-android-sdk.aar
+  - #curl -s -L https://bintray.com/testfairy/testfairy/download_file?file_path=com%2Ftestfairy%2Fproduction%2Fsdk%2Ftestfairy-android-production-sdk%2F${ANDROID_SDK_VERSION}%2Ftestfairy-android-production-sdk-${ANDROID_SDK_VERSION}.aar -o Plugins/Android/testfairy-android-sdk.aar
+  - #zip -rp9 "TestFairySDK-${TRAVIS_TAG}-Production-Unity.zip" Plugins
+  - #testfairy-unity-asset-packager --debug --prepend 'Assets/Plugins' --output TestFairySDK-${TRAVIS_TAG}-Production-Unity.unitypackage --overwrite Plugins 
 
 deploy:
   provider: releases
@@ -27,9 +27,9 @@ deploy:
     secure: DeCE3UiQBTxbuSskkBjMXkdXKvxiiJoPfvNVR874wNB0BEoAm+ZYMN+9XPuIlKfl0Fpd7XktaAvXEn2xK1FO7OXcJYPP1GZbyLwkzBm/YNmi4dHWr9BvPJzqdhLIEGw56pxuc2I6DOVys63rIZE9g1Ob68sm6ampNNfQfaXwk1s=
   file: 
     - TestFairySDK-${TRAVIS_TAG}-Unity.zip
-    - TestFairySDK-${TRAVIS_TAG}-Production-Unity.zip
+    - #TestFairySDK-${TRAVIS_TAG}-Production-Unity.zip
     - TestFairySDK-${TRAVIS_TAG}-Unity.unitypackage
-    - TestFairySDK-${TRAVIS_TAG}-Production-Unity.unitypackage
+    - #TestFairySDK-${TRAVIS_TAG}-Production-Unity.unitypackage
   skip_cleanup: true
   on:
     tags: true
