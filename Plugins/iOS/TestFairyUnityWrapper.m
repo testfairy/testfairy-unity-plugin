@@ -201,7 +201,7 @@ void TestFairy_disableVideo() {
 }
 
 void TestFairy_enableFeedbackForm(char *method) {
-	NSString *value = method  == NULL ? @"" : [NSString stringWithUTF8String: method];
+	NSString *value = method  == NULL ? @"" : [NSString stringWithUTF8String:method];
 	[TestFairy enableFeedbackForm: value];
 }
 
@@ -215,4 +215,10 @@ void TestFairy_disableAutoUpdate() {
 
 void TestFairy_crash() {
 	[TestFairy crash];
+}
+
+void TestFairy_installFeedbackHandler(char *appToken, char *method) {
+	NSString *token = appToken == NULL ? @"" : [NSString stringWithUTF8String:appToken];
+	NSString *value = method  == NULL ? @"" : [NSString stringWithUTF8String:method];
+	[TestFairy installFeedbackHandler:token method:value];
 }

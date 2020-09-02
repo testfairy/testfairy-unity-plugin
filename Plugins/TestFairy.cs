@@ -7,20 +7,32 @@ namespace TestFairyUnity
 {
 	public class TestFairy : MonoBehaviour
 	{
-		public static void begin(string APIKey) {
+		public static void begin(string appToken) {
 			TestFairy.installUnityCrashHandler();
 #if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
 #elif UNITY_IPHONE && !UNITY_EDITOR
-			TestFairy_begin(APIKey);
+			TestFairy_begin(appToken);
 #elif UNITY_ANDROID && !UNITY_EDITOR
 			AndroidJavaObject activityContext = null;
 			using (AndroidJavaClass activityClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
 				activityContext = activityClass.GetStatic<AndroidJavaObject>("currentActivity");
 			}
-			TestFairy.callMethod("begin", activityContext, APIKey);
+			TestFairy.callMethod("begin", activityContext, appToken);
 #endif
 		}
 
+		public static void installFeedbackHandler(string appToken) {
+#if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
+#elif UNITY_IPHONE && !UNITY_EDITOR
+			TestFairy_installFeedbackHandler(appToken, "shake|screenshot");
+#elif UNITY_ANDROID && !UNITY_EDITOR
+			AndroidJavaObject activityContext = null;
+			using (AndroidJavaClass activityClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
+				activityContext = activityClass.GetStatic<AndroidJavaObject>("currentActivity");
+			}
+			TestFairy.callMethod("installFeedbackHandler", activityContext, appToken);
+#endif
+		}
 		public static void setScreenName(string name) {
 #if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
 #elif UNITY_IPHONE && !UNITY_EDITOR
@@ -419,6 +431,9 @@ namespace TestFairyUnity
 #elif UNITY_IPHONE && !UNITY_EDITOR
 		[DllImport("__Internal")]
 		private static extern void TestFairy_begin(string APIKey);
+
+		[DllImport("__Internal")]
+		private static extern void TestFairy_installFeedbackHandler(string appToken, string method);
 
 		[DllImport("__Internal")]
 		private static extern void TestFairy_pushFeedbackController();
