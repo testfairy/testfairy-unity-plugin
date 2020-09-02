@@ -6,8 +6,8 @@ install:
   - npm -g i testfairy-unity-asset-packager
 
 script:
-  - ANDROID_SDK_VERSION=1.11.0
-  - IOS_VERSION=1.24.3
+  - ANDROID_SDK_VERSION=1.11.15
+  - IOS_VERSION=1.25.5
   - rm -f Plugins/Android/testfairy-android-sdk.aar
   - rm -rf $(find .  -name "TestFairy.framework*" ! -name "*.meta")
   - curl -s -L https://bintray.com/testfairy/testfairy/download_file?file_path=testfairy%2Ftestfairy-android-sdk%2F${ANDROID_SDK_VERSION}%2Ftestfairy-android-sdk-${ANDROID_SDK_VERSION}.aar -o Plugins/Android/testfairy-android-sdk.aar
