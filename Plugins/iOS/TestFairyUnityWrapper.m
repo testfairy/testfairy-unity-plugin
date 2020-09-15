@@ -1,6 +1,13 @@
 #import <TestFairy/TestFairy.h>
 #import "TestFairyUnityWrapper.h"
 
+typedef void (*TFNativeScreenshotCallback)(
+	const char* identifier,
+	const char* imagePath,
+	int width,
+	int height
+);
+
 void TestFairy_begin(char *APIKey)
 {
 	NSString *value = APIKey == NULL ? @"" : [NSString stringWithUTF8String:APIKey];
@@ -221,4 +228,27 @@ void TestFairy_installFeedbackHandler(char *appToken, char *method) {
 	NSString *token = appToken == NULL ? @"" : [NSString stringWithUTF8String:appToken];
 	NSString *value = method  == NULL ? @"" : [NSString stringWithUTF8String:method];
 	[TestFairy installFeedbackHandler:token method:value];
+}
+
+void TestFairy_takeScreenshotWithCallback(TFNativeScreenshotCallback callback, char * identifier) {
+	__block NSString *callbackId = [NSString stringWithUTF8String:identifier];
+	[TestFairy takeScreenshot:^(UIImage *image) {
+		if (image == nil) {
+			callback([callbackId UTF8String], NULL, 0, 0);
+			return;
+
+		}
+		NSData *data = UIImagePNGRepresentation(image);
+		int width = [image size].width;
+		int height = [image size].height;
+
+		NSString *filename = [NSString stringWithFormat:@"%@.png", callbackId];
+
+		NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+		NSString *documentsDirectory = [paths objectAtIndex:0];
+		NSString *filePath = [documentsDirectory stringByAppendingPathComponent:filename];
+		[data writeToFile:filePath atomically:YES];
+
+		callback([callbackId UTF8String], [filePath UTF8String], width, height);
+	}];
 }
