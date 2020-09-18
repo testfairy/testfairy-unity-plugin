@@ -6,12 +6,12 @@ using UnityEngine.Networking;
 
 namespace TestFairyUnity
 {
-	public class TestFairy : MonoBehaviour
-	{
-		private static Dictionary<string, System.Action<Texture2D>> takeScreenshotLookup = new Dictionary<string, System.Action<Texture2D>>();
-		public static void begin(string appToken)
-		{
-			TestFairy.installUnityCrashHandler();
+    public class TestFairy : MonoBehaviour
+    {
+        private static Dictionary<string, System.Action<Texture2D>> takeScreenshotLookup = new Dictionary<string, System.Action<Texture2D>>();
+        public static void begin(string appToken)
+        {
+            TestFairy.installUnityCrashHandler();
 #if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
 #elif UNITY_IPHONE && !UNITY_EDITOR
 			TestFairy_begin(appToken);
@@ -22,10 +22,10 @@ namespace TestFairyUnity
 			}
 			TestFairy.callMethod("begin", activityContext, appToken);
 #endif
-		}
+        }
 
-		public static void installFeedbackHandler(string appToken)
-		{
+        public static void installFeedbackHandler(string appToken)
+        {
 #if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
 #elif UNITY_IPHONE && !UNITY_EDITOR
 			TestFairy_installFeedbackHandler(appToken, "shake|screenshot");
@@ -36,56 +36,56 @@ namespace TestFairyUnity
 			}
 			TestFairy.callMethod("installFeedbackHandler", activityContext, appToken);
 #endif
-		}
-		public static void setScreenName(string name)
-		{
+        }
+        public static void setScreenName(string name)
+        {
 #if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
 #elif UNITY_IPHONE && !UNITY_EDITOR
 			TestFairy_setScreenName(name);
 #elif UNITY_ANDROID && !UNITY_EDITOR
 			TestFairy.callMethod("setScreenName", name);
 #endif
-		}
+        }
 
-		public static void setUserId(string userId)
-		{
+        public static void setUserId(string userId)
+        {
 #if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
 #elif UNITY_IPHONE && !UNITY_EDITOR
 			TestFairy_setUserId(userId);
 #elif UNITY_ANDROID && !UNITY_EDITOR
 			TestFairy.callMethod("setUserId", userId);
 #endif
-		}
+        }
 
-		public static bool setAttribute(string aKey, string aValue)
-		{
+        public static bool setAttribute(string aKey, string aValue)
+        {
 #if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
-			return false;
+            return false;
 #elif UNITY_IPHONE && !UNITY_EDITOR
 			return TestFairy_setAttribute(aKey, aValue);
 #elif UNITY_ANDROID && !UNITY_EDITOR
 			return TestFairy.callBoolMethod("setAttribute", aKey, aValue);
 #endif
-		}
+        }
 
-		/// <summary>
-		/// Push the feedback view controller. Hook a button to this method
-		/// to allow users to provide feedback about the current session. All
-		/// feedback will appear in your build report page, and in the
-		/// recorded session page.
-		/// </summary>
-		public static void pushFeedbackController()
-		{
+        /// <summary>
+        /// Push the feedback view controller. Hook a button to this method
+        /// to allow users to provide feedback about the current session. All
+        /// feedback will appear in your build report page, and in the
+        /// recorded session page.
+        /// </summary>
+        public static void pushFeedbackController()
+        {
 #if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
 #elif UNITY_IPHONE && !UNITY_EDITOR
 			TestFairy_pushFeedbackController();
 #elif UNITY_ANDROID && !UNITY_EDITOR
 			TestFairy.callMethod("showFeedbackForm");
 #endif
-		}
+        }
 
-		public static void showFeedbackForm(string appToken, bool takeScreenshot)
-		{
+        public static void showFeedbackForm(string appToken, bool takeScreenshot)
+        {
 #if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
 #elif UNITY_IPHONE && !UNITY_EDITOR
 			TestFairy_showFeedbackForm(appToken, takeScreenshot);
@@ -96,121 +96,121 @@ namespace TestFairyUnity
 			}
 			TestFairy.callMethod("showFeedbackForm", activityContext, appToken, takeScreenshot);
 #endif
-		}
+        }
 
-		/// <summary>
-		/// Mark a checkpoint in session. Use this text to tag a session
-		/// with a checkpoint name. Later you can filter sessions where your
-		/// user passed through this checkpoint, for bettering understanding
-		/// user experience and behavior.
-		/// </summary>
-		/// <param name="name">Name of checkpoint, make it short.</param>
-		public static void checkpoint(string name)
-		{
+        /// <summary>
+        /// Mark a checkpoint in session. Use this text to tag a session
+        /// with a checkpoint name. Later you can filter sessions where your
+        /// user passed through this checkpoint, for bettering understanding
+        /// user experience and behavior.
+        /// </summary>
+        /// <param name="name">Name of checkpoint, make it short.</param>
+        public static void checkpoint(string name)
+        {
 #if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
 #elif UNITY_IPHONE && !UNITY_EDITOR
 			TestFairy_checkpoint(name);
 #elif UNITY_ANDROID && !UNITY_EDITOR
 			TestFairy.callMethod("addCheckpoint", name);
 #endif
-		}
+        }
 
-		/// <summary>
-		/// Sets a correlation identifier for this session. This value can
-		/// be looked up via web dashboard. For example, setting correlation
-		/// to the value of the user-id after they logged in. Can be called
-		/// only once per session (subsequent calls will be ignored.)
-		/// </summary>
-		/// <param name="correlationId">Correlation value</param>
-		public static void setCorrelationId(string correlationId)
-		{
+        /// <summary>
+        /// Sets a correlation identifier for this session. This value can
+        /// be looked up via web dashboard. For example, setting correlation
+        /// to the value of the user-id after they logged in. Can be called
+        /// only once per session (subsequent calls will be ignored.)
+        /// </summary>
+        /// <param name="correlationId">Correlation value</param>
+        public static void setCorrelationId(string correlationId)
+        {
 #if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
 #elif UNITY_IPHONE && !UNITY_EDITOR
 			TestFairy_setCorrelationId(correlationId);
 #elif UNITY_ANDROID && !UNITY_EDITOR
 			TestFairy.callMethod("setCorrelationId", correlationId);
 #endif
-		}
+        }
 
-		/// <summary>
-		/// Sets a correlation identifier for this session. This value can
-		/// be looked up via web dashboard. For example, setting correlation
-		/// to the value of the user-id after they logged in. Can be called
-		/// only once per session (subsequent calls will be ignored.)
-		/// </summary>
-		/// <param name="correlationId">Correlation value</param>
-		public static void identify(string correlationId, Dictionary<string, object> traits = null)
-		{
-			string traitsString = null;
-			if (traits != null)
-			{
-				traitsString = "";
-				foreach (KeyValuePair<string, object> kvp in traits)
-				{
-					string encodedKey = UnityWebRequest.EscapeURL(kvp.Key);
-					string encodedValue = UnityWebRequest.EscapeURL(kvp.Value.ToString());
-					string type = kvp.Value.GetType().ToString();
-					traitsString += encodedKey + "=" + type + "/" + encodedValue + "\n";
-				}
-			}
+        /// <summary>
+        /// Sets a correlation identifier for this session. This value can
+        /// be looked up via web dashboard. For example, setting correlation
+        /// to the value of the user-id after they logged in. Can be called
+        /// only once per session (subsequent calls will be ignored.)
+        /// </summary>
+        /// <param name="correlationId">Correlation value</param>
+        public static void identify(string correlationId, Dictionary<string, object> traits = null)
+        {
+            string traitsString = null;
+            if (traits != null)
+            {
+                traitsString = "";
+                foreach (KeyValuePair<string, object> kvp in traits)
+                {
+                    string encodedKey = UnityWebRequest.EscapeURL(kvp.Key);
+                    string encodedValue = UnityWebRequest.EscapeURL(kvp.Value.ToString());
+                    string type = kvp.Value.GetType().ToString();
+                    traitsString += encodedKey + "=" + type + "/" + encodedValue + "\n";
+                }
+            }
 #if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
 #elif UNITY_IPHONE && !UNITY_EDITOR
 			TestFairy_identify(correlationId, traitsString);
 #elif UNITY_ANDROID && !UNITY_EDITOR
 			TestFairy.callMethod("identify", correlationId, traitsString);
 #endif
-		}
+        }
 
-		/// <summary>
-		/// Pauses the current session. This method stops recoding of
-		/// the current session until Resume() has been called.
-		/// </summary>
-		public static void pause()
-		{
+        /// <summary>
+        /// Pauses the current session. This method stops recoding of
+        /// the current session until Resume() has been called.
+        /// </summary>
+        public static void pause()
+        {
 #if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
 #elif UNITY_IPHONE && !UNITY_EDITOR
 			TestFairy_pause();
 #elif UNITY_ANDROID && !UNITY_EDITOR
 			TestFairy.callMethod("pause");
 #endif
-		}
+        }
 
-		/// <summary>
-		/// Resumes the recording of the current session. This method
-		/// resumes a session after it was paused or stopped.
-		/// </summary>
-		public static void resume()
-		{
+        /// <summary>
+        /// Resumes the recording of the current session. This method
+        /// resumes a session after it was paused or stopped.
+        /// </summary>
+        public static void resume()
+        {
 #if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
 #elif UNITY_IPHONE && !UNITY_EDITOR
 			TestFairy_resume();
 #elif UNITY_ANDROID && !UNITY_EDITOR
 			TestFairy.callMethod("resume");
 #endif
-		}
+        }
 
-		/// <summary>
-		/// Stops the recording of the current session.
-		/// </summary>
-		public static void stop()
-		{
+        /// <summary>
+        /// Stops the recording of the current session.
+        /// </summary>
+        public static void stop()
+        {
 #if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
 #elif UNITY_IPHONE && !UNITY_EDITOR
 			TestFairy_stop();
 #elif UNITY_ANDROID && !UNITY_EDITOR
 			TestFairy.callMethod("stop");
 #endif
-		}
+        }
 
-		/// <summary>
-		/// Returns the url of the current session while its being recorded.
-		/// Will return null if session hasn't started yet.
-		/// </summary>
-		/// <returns>The session URL.</returns>
-		public static string sessionUrl()
-		{
+        /// <summary>
+        /// Returns the url of the current session while its being recorded.
+        /// Will return null if session hasn't started yet.
+        /// </summary>
+        /// <returns>The session URL.</returns>
+        public static string sessionUrl()
+        {
 #if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
-			return null;
+            return null;
 #elif UNITY_IPHONE && !UNITY_EDITOR
 			return TestFairy_sessionUrl();
 #elif UNITY_ANDROID && !UNITY_EDITOR
@@ -222,16 +222,16 @@ namespace TestFairyUnity
 			}
 			return sessionUrlStr;
 #endif
-		}
+        }
 
-		/// <summary>
-		/// Returns the current installed version of TestFairy SDK.
-		/// </summary>
-		/// <returns>TestFairy version string.</returns>
-		public static string version()
-		{
+        /// <summary>
+        /// Returns the current installed version of TestFairy SDK.
+        /// </summary>
+        /// <returns>TestFairy version string.</returns>
+        public static string version()
+        {
 #if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
-			return null;
+            return null;
 #elif UNITY_IPHONE && !UNITY_EDITOR
 			return TestFairy_version();
 #elif UNITY_ANDROID && !UNITY_EDITOR
@@ -243,26 +243,27 @@ namespace TestFairyUnity
 			}
 			return versionStr;
 #endif
-		}
+        }
 
-		/// <summary>
-		/// Sends a feedback string to TestFairy
-		/// </summary>
-		public static void sendUserFeedback(string feedback)
-		{
+        /// <summary>
+        /// Sends a feedback string to TestFairy
+        /// </summary>
+        public static void sendUserFeedback(string feedback)
+        {
 #if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
 #elif UNITY_IPHONE && !UNITY_EDITOR
 			TestFairy_sendUserFeedback(feedback);
 #elif UNITY_ANDROID && !UNITY_EDITOR
 			TestFairy.callMethod("sendUserFeedback", feedback);
 #endif
-		}
+        }
 
-		/// <summary>
-		/// Sends a feedback string to TestFairy
-		/// </summary>
-		public static void sendUserFeedback(string appToken, string feedback, Texture2D texture) {
-			#if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
+        /// <summary>
+        /// Sends a feedback string to TestFairy
+        /// </summary>
+        public static void sendUserFeedback(string appToken, string feedback, Texture2D texture)
+        {
+#if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
 #elif UNITY_IPHONE && !UNITY_EDITOR
 			string filePath = null;
 			if (texture != null) {
@@ -277,156 +278,169 @@ namespace TestFairyUnity
 				System.IO.File.Delete(filePath);
 			}
 #elif UNITY_ANDROID && !UNITY_EDITOR
-			// TODO: Add Android Code
-#endif
-		}
+			System.SByte[] encodedTexture = (System.SByte[])(System.Array) texture.EncodeToPNG(); // TODO : EncodeToPNG() flips the image
+			AndroidJavaObject bitmap = null;
+			using (AndroidJavaClass bitmapFactory = new AndroidJavaClass("android.graphics.BitmapFactory"))
+			{
+				bitmap = bitmapFactory.CallStatic<AndroidJavaObject>("decodeByteArray", encodedTexture, 0, encodedTexture.Length);
+			}
 
-		/// <summary>
-		/// Takes a screenshot
-		/// </summary>
-		public static void takeScreenshot()
-		{
+			AndroidJavaObject activityContext = null;
+			using (AndroidJavaClass activityClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+			{
+				activityContext = activityClass.GetStatic<AndroidJavaObject>("currentActivity");
+			}
+
+			TestFairy.callMethod("sendUserFeedback", activityContext, appToken, feedback, bitmap);
+#endif
+        }
+
+        /// <summary>
+        /// Takes a screenshot
+        /// </summary>
+        public static void takeScreenshot()
+        {
 #if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
 #elif UNITY_IPHONE && !UNITY_EDITOR
 			TestFairy_takeScreenshot();
 #elif UNITY_ANDROID && !UNITY_EDITOR
 			TestFairy.callMethod("takeScreenshot");
 #endif
-		}
+        }
 
-		public static void log(string message)
-		{
+        public static void log(string message)
+        {
 #if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
 #elif UNITY_IPHONE && !UNITY_EDITOR
 			TestFairy_log(message);
 #elif UNITY_ANDROID && !UNITY_EDITOR
 			TestFairy.callMethod("log", "TestFairyUnity", message);
 #endif
-		}
+        }
 
-		public static void logException(string message, string stacktrace)
-		{
+        public static void logException(string message, string stacktrace)
+        {
 #if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
 #elif UNITY_IPHONE && !UNITY_EDITOR
 			TestFairy_logException(message, stacktrace);
 #elif UNITY_ANDROID && !UNITY_EDITOR
 			TestFairy.callMethod("logThrowable", stacktrace);
 #endif
-		}
+        }
 
-		public static void hideWebViewElements(string cssSelector)
-		{
+        public static void hideWebViewElements(string cssSelector)
+        {
 #if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
 #elif UNITY_IPHONE && !UNITY_EDITOR
 			TestFairy_hideWebViewElements(cssSelector);
 #elif UNITY_ANDROID && !UNITY_EDITOR
 			TestFairy.callMethod("hideWebViewElements", cssSelector);
 #endif
-		}
+        }
 
-		public static void disableVideo()
-		{
+        public static void disableVideo()
+        {
 #if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
 #elif UNITY_IPHONE && !UNITY_EDITOR
 			TestFairy_disableVideo();
 #elif UNITY_ANDROID && !UNITY_EDITOR
 			TestFairy.callMethod("disableVideo");
 #endif
-		}
+        }
 
-		public static void enableVideo(string policy, string quality, float framesPerSecond)
-		{
+        public static void enableVideo(string policy, string quality, float framesPerSecond)
+        {
 #if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
 #elif UNITY_IPHONE && !UNITY_EDITOR
 			TestFairy_enableVideo(policy, quality, framesPerSecond);
 #elif UNITY_ANDROID && !UNITY_EDITOR
 			TestFairy.callMethod("enableVideo", policy, quality, framesPerSecond);
 #endif
-		}
+        }
 
-		public static void enableCrashHandler()
-		{
+        public static void enableCrashHandler()
+        {
 #if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
 #elif UNITY_IPHONE && !UNITY_EDITOR
 			TestFairy_enableCrashHandler();
 #elif UNITY_ANDROID && !UNITY_EDITOR
 			TestFairy.callMethod("enableCrashHandler");
 #endif
-		}
+        }
 
-		public static void disableCrashHandler()
-		{
+        public static void disableCrashHandler()
+        {
 #if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
 #elif UNITY_IPHONE && !UNITY_EDITOR
 			TestFairy_disableCrashHandler();
 #elif UNITY_ANDROID && !UNITY_EDITOR
 			TestFairy.callMethod("disableCrashHandler");
 #endif
-		}
+        }
 
-		public static void enableMetric(string metric)
-		{
+        public static void enableMetric(string metric)
+        {
 #if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
 #elif UNITY_IPHONE && !UNITY_EDITOR
 			TestFairy_enableMetric(metric);
 #elif UNITY_ANDROID && !UNITY_EDITOR
 			TestFairy.callMethod("disableCrashHandler");
 #endif
-		}
+        }
 
-		public static void disableMetric(string metric)
-		{
+        public static void disableMetric(string metric)
+        {
 #if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
 #elif UNITY_IPHONE && !UNITY_EDITOR
 			TestFairy_disableMetric(metric);
 #elif UNITY_ANDROID && !UNITY_EDITOR
 			TestFairy.callMethod("disableMetric", metric);
 #endif
-		}
+        }
 
-		public static void enableFeedbackForm(string method)
-		{
+        public static void enableFeedbackForm(string method)
+        {
 #if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
 #elif UNITY_IPHONE && !UNITY_EDITOR
 			TestFairy_enableFeedbackForm(method);
 #elif UNITY_ANDROID && !UNITY_EDITOR
 			TestFairy.callMethod("enableFeedbackForm");
 #endif
-		}
+        }
 
-		public static void disableFeedbackForm()
-		{
+        public static void disableFeedbackForm()
+        {
 #if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
 #elif UNITY_IPHONE && !UNITY_EDITOR
 			TestFairy_disableFeedbackForm();
 #elif UNITY_ANDROID && !UNITY_EDITOR
 			TestFairy.callMethod("disableFeedbackForm");
 #endif
-		}
+        }
 
-		public static void disableAutoUpdate()
-		{
+        public static void disableAutoUpdate()
+        {
 #if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
 #elif UNITY_IPHONE && !UNITY_EDITOR
 			TestFairy_disableAutoUpdate();
 #elif UNITY_ANDROID && !UNITY_EDITOR
 			TestFairy.callMethod("disableAutoUpdate");
 #endif
-		}
+        }
 
-		public static void setServerEndpoint(string endpoint)
-		{
+        public static void setServerEndpoint(string endpoint)
+        {
 #if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
 #elif UNITY_IPHONE && !UNITY_EDITOR
 			TestFairy_setServerEndpoint(endpoint);
 #elif UNITY_ANDROID && !UNITY_EDITOR
 			TestFairy.callMethod("setServerEndpoint", endpoint);
 #endif
-		}
+        }
 
-		public static void takeScreenshot(System.Action<Texture2D> callback)
-		{
-			TestFairy.installUnityCrashHandler();
+        public static void takeScreenshot(System.Action<Texture2D> callback)
+        {
+            TestFairy.installUnityCrashHandler();
 
 #if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
 #elif UNITY_IPHONE && !UNITY_EDITOR
@@ -442,30 +456,30 @@ namespace TestFairyUnity
 
 			TestFairy.callMethod("takeScreenshot", activityContext, new TakeScreenshotListener(callback));
 #endif
-		}
+        }
 
-		public static void crash()
-		{
+        public static void crash()
+        {
 #if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
 #elif UNITY_IPHONE && !UNITY_EDITOR
 			TestFairy_crash();
 #elif UNITY_ANDROID && !UNITY_EDITOR
 			// TestFairy.callMethod("crash");
 #endif
-		}
+        }
 
-		private static void installUnityCrashHandler()
-		{
-			Application.logMessageReceivedThreaded += TestFairy.logMsgRecvThreaded;
-		}
+        private static void installUnityCrashHandler()
+        {
+            Application.logMessageReceivedThreaded += TestFairy.logMsgRecvThreaded;
+        }
 
-		private static void logMsgRecvThreaded(string _condition, string _stackTrace, LogType _type)
-		{
-			if (_type == LogType.Exception)
-			{
-				TestFairy.logException(_condition, _stackTrace);
-			}
-		}
+        private static void logMsgRecvThreaded(string _condition, string _stackTrace, LogType _type)
+        {
+            if (_type == LogType.Exception)
+            {
+                TestFairy.logException(_condition, _stackTrace);
+            }
+        }
 #if UNITY_ANDROID && !UNITY_EDITOR
 		void Start () {
 			AndroidJNI.AttachCurrentThread();
@@ -486,6 +500,8 @@ namespace TestFairyUnity
 						pluginClass.CallStatic(methodName, args[0], args[1]);
 					} else if (args.Length == 3) {
 						pluginClass.CallStatic(methodName, args[0], args[1], args[2]);
+					} else if (args.Length == 4) {
+						pluginClass.CallStatic(methodName, args[0], args[1], args[2], args[3]);
 					}
 				}
 			}
@@ -759,5 +775,5 @@ namespace TestFairyUnity
 			System.IO.File.Delete(imagePath);
 		}
 #endif
-	}
+    }
 }
