@@ -259,6 +259,25 @@ namespace TestFairyUnity
 		}
 
 		/// <summary>
+		/// Sends a feedback string to TestFairy
+		/// </summary>
+		public static void sendUserFeedback(string appToken, string feedback, Texture2D texture) {
+			#if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
+#elif UNITY_IPHONE && !UNITY_EDITOR
+			string filePath = null;
+			if (texture != null) {
+				string identifier = System.Guid.NewGuid().ToString();
+				filePath = Application.persistentDataPath + "/" + identifier;
+				byte[] bytes = texture.EncodeToPNG();
+				System.IO.File.WriteAllBytes(filePath, bytes);
+			}
+			TestFairy_sendUserFeedbackWithImage(appToken, feedback, filePath);
+#elif UNITY_ANDROID && !UNITY_EDITOR
+			// TODO: Add Android Code
+#endif
+		}
+
+		/// <summary>
 		/// Takes a screenshot
 		/// </summary>
 		public static void takeScreenshot()
@@ -654,6 +673,9 @@ namespace TestFairyUnity
 
 		[DllImport("__Internal")]
 		private static extern void TestFairy_sendUserFeedback(string feedback);
+
+		[DllImport("__Internal")]
+		private static extern void TestFairy_sendUserFeedbackWithImage(string appToken, string feedback, string filePath);
 
 		[DllImport("__Internal")]
 		private static extern void TestFairy_takeScreenshot();

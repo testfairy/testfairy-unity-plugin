@@ -128,6 +128,17 @@ void TestFairy_sendUserFeedback(char *feedback)
 	[TestFairy sendUserFeedback:value];
 }
 
+void TestFairy_sendUserFeedbackWithImage(char *appToken, char *text, char *imagePath) {
+	UIImage *image = nil;
+	if (imagePath != NULL) {
+		image = [UIImage imageWithContentsOfFile:[NSString stringWithUTF8String: imagePath]];
+	}
+
+	[TestFairy sendUserFeedback:[NSString stringWithUTF8String:appToken]
+						text:[NSString stringWithUTF8String:text]
+						screenshot:image];
+}
+
 void TestFairy_takeScreenshot()
 {
 	[TestFairy takeScreenshot];
@@ -236,14 +247,13 @@ void TestFairy_takeScreenshotWithCallback(TFNativeScreenshotCallback callback, c
 		if (image == nil) {
 			callback([callbackId UTF8String], NULL, 0, 0);
 			return;
-
 		}
+
 		NSData *data = UIImagePNGRepresentation(image);
 		int width = [image size].width;
 		int height = [image size].height;
 
 		NSString *filename = [NSString stringWithFormat:@"%@.png", callbackId];
-
 		NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 		NSString *documentsDirectory = [paths objectAtIndex:0];
 		NSString *filePath = [documentsDirectory stringByAppendingPathComponent:filename];
