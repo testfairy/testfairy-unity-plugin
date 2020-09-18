@@ -272,6 +272,10 @@ namespace TestFairyUnity
 				System.IO.File.WriteAllBytes(filePath, bytes);
 			}
 			TestFairy_sendUserFeedbackWithImage(appToken, feedback, filePath);
+
+			if (filePath != null) {
+				System.IO.File.Delete(filePath);
+			}
 #elif UNITY_ANDROID && !UNITY_EDITOR
 			// TODO: Add Android Code
 #endif
@@ -752,6 +756,7 @@ namespace TestFairyUnity
 			texture.Apply();
 
 			callback.Invoke(texture);
+			System.IO.File.Delete(imagePath);
 		}
 #endif
 	}
