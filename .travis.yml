@@ -6,13 +6,12 @@ install:
   - npm -g i testfairy-unity-asset-packager
 
 script:
-  - ANDROID_SDK_VERSION=1.11.17
-  - IOS_VERSION=1.26.1
+  - ANDROID_SDK_VERSION=1.11.19
+  - IOS_VERSION=1.26.2
   - rm -f Plugins/Android/testfairy-android-sdk.aar
-  - rm -rf $(find .  -name "TestFairy.framework*" ! -name "*.meta")
   - curl -s -L https://bintray.com/testfairy/testfairy/download_file?file_path=testfairy%2Ftestfairy-android-sdk%2F${ANDROID_SDK_VERSION}%2Ftestfairy-android-sdk-${ANDROID_SDK_VERSION}.aar -o Plugins/Android/testfairy-android-sdk.aar
   - curl -s -L https://s3.amazonaws.com/testfairy/sdk/TestFairySDK-${IOS_VERSION}-framework.zip -o  Plugins/iOS/TestFairySDK-framework.zip
-  - unzip -d Plugins/iOS/ Plugins/iOS/TestFairySDK-framework.zip
+  - unzip -o -d Plugins/iOS/ Plugins/iOS/TestFairySDK-framework.zip
   - rm Plugins/iOS/TestFairySDK-framework.zip
   - zip -rp9 "TestFairySDK-${TRAVIS_TAG}-Unity.zip" Plugins
   - testfairy-unity-asset-packager --debug --prepend 'Assets/Plugins' --output TestFairySDK-${TRAVIS_TAG}-Unity.unitypackage --overwrite Plugins
