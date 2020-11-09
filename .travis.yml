@@ -7,7 +7,7 @@ install:
 
 script:
   - ANDROID_SDK_VERSION=1.11.25
-  - IOS_VERSION=1.26.6
+  - IOS_VERSION=1.26.7
   - rm -f Plugins/Android/testfairy-android-sdk.aar
   - curl -s -L https://bintray.com/testfairy/testfairy/download_file?file_path=testfairy%2Ftestfairy-android-sdk%2F${ANDROID_SDK_VERSION}%2Ftestfairy-android-sdk-${ANDROID_SDK_VERSION}.aar -o Plugins/Android/testfairy-android-sdk.aar
   - curl -s -L https://s3.amazonaws.com/testfairy/sdk/TestFairySDK-${IOS_VERSION}-framework.zip -o  Plugins/iOS/TestFairySDK-framework.zip
