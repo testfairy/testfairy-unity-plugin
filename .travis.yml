@@ -14,8 +14,7 @@ script:
   - rm -f Files/iOS/libTestFairy.a
   - rm -f Files/iOS/upload-dsym.sh
   - rm -f Files/iOS/strip-architectures.sh
-  - rm -rf Files/iOS/
-  - rm -f Files/
+  - rm -rf Files/iOS/TestFairy.xcframework
   - curl -s -L https://bintray.com/testfairy/testfairy/download_file?file_path=testfairy%2Ftestfairy-android-sdk%2F${ANDROID_SDK_VERSION}%2Ftestfairy-android-sdk-${ANDROID_SDK_VERSION}.aar -o Files/Android/testfairy-android-sdk.aar
   - curl -s -L https://s3.amazonaws.com/testfairy/sdk/TestFairySDK-${IOS_VERSION}.zip -o  Files/iOS/TestFairySDK.zip
   - curl -s -L https://s3.amazonaws.com/testfairy/sdk/TestFairySDK-${IOS_VERSION}.xcframework.zip -o  Files/iOS/TestFairySDK.xcframework.zip
