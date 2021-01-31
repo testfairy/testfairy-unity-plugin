@@ -1,18 +1,29 @@
 language: node_js
 node_js:
-  - '12'
+  - '14'
 
 install:
   - npm -g i testfairy-unity-asset-packager
+  - npm install
 
 script:
   - ANDROID_SDK_VERSION=1.11.34
   - IOS_VERSION=1.26.9
-  - rm -f Plugins/Android/testfairy-android-sdk.aar
-  - curl -s -L https://bintray.com/testfairy/testfairy/download_file?file_path=testfairy%2Ftestfairy-android-sdk%2F${ANDROID_SDK_VERSION}%2Ftestfairy-android-sdk-${ANDROID_SDK_VERSION}.aar -o Plugins/Android/testfairy-android-sdk.aar
-  - curl -s -L https://s3.amazonaws.com/testfairy/sdk/TestFairySDK-${IOS_VERSION}-framework.zip -o  Plugins/iOS/TestFairySDK-framework.zip
-  - unzip -o -d Plugins/iOS/ Plugins/iOS/TestFairySDK-framework.zip
-  - rm Plugins/iOS/TestFairySDK-framework.zip
+  - rm -f Files/Android/testfairy-android-sdk.aar
+  - rm -f Files/iOS/TestFairy.h
+  - rm -f Files/iOS/libTestFairy.a
+  - rm -f Files/iOS/upload-dsym.sh
+  - rm -f Files/iOS/strip-architectures.sh
+  - rm -rf Files/iOS/
+  - rm -f Files/
+  - curl -s -L https://bintray.com/testfairy/testfairy/download_file?file_path=testfairy%2Ftestfairy-android-sdk%2F${ANDROID_SDK_VERSION}%2Ftestfairy-android-sdk-${ANDROID_SDK_VERSION}.aar -o Files/Android/testfairy-android-sdk.aar
+  - curl -s -L https://s3.amazonaws.com/testfairy/sdk/TestFairySDK-${IOS_VERSION}.zip -o  Files/iOS/TestFairySDK.zip
+  - curl -s -L https://s3.amazonaws.com/testfairy/sdk/TestFairySDK-${IOS_VERSION}.xcframework.zip -o  Files/iOS/TestFairySDK.xcframework.zip
+  - unzip -o -d Files/iOS/ Files/iOS/TestFairySDK.zip
+  - unzip -o -d Files/iOS/ Files/iOS/TestFairySDK.xcframework.zip
+  - rm -f Files/iOS/TestFairySDK.zip
+  - rm -f Files/iOS/TestFairySDK.xcframework.zip
+  - node build.js
   - zip -rp9 "TestFairySDK-${TRAVIS_TAG}-Unity.zip" Plugins
   - testfairy-unity-asset-packager --debug --prepend 'Assets/Plugins' --output TestFairySDK-${TRAVIS_TAG}-Unity.unitypackage --overwrite Plugins
 deploy:

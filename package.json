@@ -1,0 +1,19 @@
+{
+  "name": "testfairy-unity-plugin",
+  "version": "1.0.0",
+  "description": "For class reference, installation and more information, please visit  [Unity integration document](http://docs.testfairy.com/Platforms/Unity.html) on TestFairy.",
+  "main": "build.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/testfairy/testfairy-unity-plugin.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/testfairy/testfairy-unity-plugin/issues"
+  },
+  "homepage": "https://github.com/testfairy/testfairy-unity-plugin#readme"
+}
