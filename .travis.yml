@@ -23,9 +23,12 @@ script:
   - unzip -o -d Files/iOS/ Files/iOS/TestFairySDK.xcframework.zip
   - rm -f Files/iOS/TestFairySDK.zip
   - rm -f Files/iOS/TestFairySDK.xcframework.zip
-  - node build.js
+  - node build.js static
   - zip -rp9 "TestFairySDK-${TRAVIS_TAG}-Unity.zip" Plugins
   - testfairy-unity-asset-packager --debug --prepend 'Assets/Plugins' --output TestFairySDK-${TRAVIS_TAG}-Unity.unitypackage --overwrite Plugins
+  - node build.js xcframework
+  - zip -rp9 "TestFairySDK-${TRAVIS_TAG}-Unity2021.zip" Plugins
+  - testfairy-unity-asset-packager --debug --prepend 'Assets/Plugins' --output TestFairySDK-${TRAVIS_TAG}-Unity2021.unitypackage --overwrite Plugins
 deploy:
   provider: releases
   api_key:
@@ -33,6 +36,8 @@ deploy:
   file:
     - TestFairySDK-${TRAVIS_TAG}-Unity.zip
     - TestFairySDK-${TRAVIS_TAG}-Unity.unitypackage
+    - TestFairySDK-${TRAVIS_TAG}-Unity2021.zip
+    - TestFairySDK-${TRAVIS_TAG}-Unity2021.unitypackage
   skip_cleanup: true
   on:
     tags: true
