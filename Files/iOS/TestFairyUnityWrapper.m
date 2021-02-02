@@ -1,4 +1,4 @@
-#import <TestFairy/TestFairy.h>
+#import "TestFairy.h"
 #import "TestFairyUnityWrapper.h"
 
 typedef void (*TFNativeScreenshotCallback)(
