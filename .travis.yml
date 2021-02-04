@@ -25,7 +25,7 @@ script:
   - node build.js static
   - zip -rp9 "TestFairySDK-${TRAVIS_TAG}-Unity.zip" Plugins
   - testfairy-unity-asset-packager --debug --prepend 'Assets/Plugins' --output TestFairySDK-${TRAVIS_TAG}-Unity.unitypackage --overwrite Plugins
-  - sed "s/#import \"TestFairy.h\"/#import <TestFairy\/TestFairy.h>/g" Files/iOS/TestFairyUnityWrapper.m
+  - sed "s/#import \"TestFairy.h\"/#import <TestFairy\/TestFairy.h>/g" Files/iOS/TestFairyUnityWrapper.m > Files/iOS/TestFairyUnityWrapper.m
   - node build.js xcframework
   - zip -rp9 "TestFairySDK-${TRAVIS_TAG}-Unity2021.zip" Plugins
   - testfairy-unity-asset-packager --debug --prepend 'Assets/Plugins' --output TestFairySDK-${TRAVIS_TAG}-Unity2021.unitypackage --overwrite Plugins
