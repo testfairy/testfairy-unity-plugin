@@ -1,2 +1,0 @@
-@interface TestFairyUnityWrapper : NSObject
-@end
