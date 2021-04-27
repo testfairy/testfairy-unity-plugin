@@ -7,8 +7,8 @@ install:
   - npm install
 
 script:
-  - ANDROID_SDK_VERSION=1.12.3
-  - IOS_VERSION=1.28.2
+  - ANDROID_SDK_VERSION=1.12.6
+  - IOS_VERSION=1.28.6
   - mkdir -p Files/Android/
   - mkdir -p Files/iOS/
   - curl -s -L https://maven.testfairy.com/com/testfairy/testfairy-android-sdk/${ANDROID_SDK_VERSION}/testfairy-android-sdk-${ANDROID_SDK_VERSION}.aar -o Files/Android/testfairy-android-sdk.aar
