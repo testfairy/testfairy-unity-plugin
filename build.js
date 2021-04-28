@@ -25,7 +25,8 @@ const files = {
 		"iOS/TestFairy.xcframework/ios-arm64_arm64e_armv7/TestFairy.framework/strip-architectures.sh",
 		"iOS/TestFairy.xcframework/ios-arm64_arm64e_armv7/TestFairy.framework/TestFairy",
 		"iOS/TestFairy.xcframework/ios-arm64_arm64e_armv7/TestFairy.framework/upload-dsym.sh",
-		"iOS/TestFairy.xcframework/ios-arm64_arm64e_armv7/dSYMs/TestFairy.framework.dSYM",
+		"iOS/TestFairy.xcframework/ios-arm64_arm64e_armv7/dSYMs/TestFairy.framework.dSYM/Contents/Info.plist",
+		"iOS/TestFairy.xcframework/ios-arm64_arm64e_armv7/dSYMs/TestFairy.framework.dSYM/Contents/Resources/DWARF/TestFairy",
 		"iOS/TestFairy.xcframework/ios-arm64_i386_x86_64-simulator/TestFairy.framework/Headers/TestFairy.h",
 		"iOS/TestFairy.xcframework/ios-arm64_i386_x86_64-simulator/TestFairy.framework/Info.plist",
 		"iOS/TestFairy.xcframework/ios-arm64_i386_x86_64-simulator/TestFairy.framework/Modules/module.modulemap",
@@ -33,7 +34,8 @@ const files = {
 		"iOS/TestFairy.xcframework/ios-arm64_i386_x86_64-simulator/TestFairy.framework/strip-architectures.sh",
 		"iOS/TestFairy.xcframework/ios-arm64_i386_x86_64-simulator/TestFairy.framework/TestFairy",
 		"iOS/TestFairy.xcframework/ios-arm64_i386_x86_64-simulator/TestFairy.framework/upload-dsym.sh",
-		"iOS/TestFairy.xcframework/ios-arm64_i386_x86_64-simulator/dSYMs/TestFairy.framework.dSYM",
+		"iOS/TestFairy.xcframework/ios-arm64_i386_x86_64-simulator/dSYMs/TestFairy.framework.dSYM/Contents/Info.plist",
+		"iOS/TestFairy.xcframework/ios-arm64_i386_x86_64-simulator/dSYMs/TestFairy.framework.dSYM/Contents/Resources/DWARF/TestFairy",
 	]
 };
 
