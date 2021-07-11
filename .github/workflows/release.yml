@@ -1,0 +1,47 @@
+name: Release TestFairy Unity SDK
+on:
+  push:
+    tags:
+      - '*.*.*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '15.12.0'
+      - name: Install Dependencies
+        run: |
+          npm -g i testfairy-unity-asset-packager
+          npm install
+      - name: Update native SDK versions
+        run: |
+          ANDROID_SDK_VERSION=1.12.9
+          IOS_VERSION=1.29.0
+          mkdir -p Files/Android/
+          mkdir -p Files/iOS/
+          curl -s -L https://maven.testfairy.com/com/testfairy/testfairy-android-sdk/${ANDROID_SDK_VERSION}/testfairy-android-sdk-${ANDROID_SDK_VERSION}.aar -o Files/Android/testfairy-android-sdk.aar
+          curl -s -L https://s3.amazonaws.com/testfairy/sdk/TestFairySDK-${IOS_VERSION}.zip -o  Files/iOS/TestFairySDK.zip
+          curl -s -L https://s3.amazonaws.com/testfairy/sdk/TestFairySDK-${IOS_VERSION}.xcframework.zip -o  Files/iOS/TestFairySDK.xcframework.zip
+          unzip -o -d Files/iOS/ Files/iOS/TestFairySDK.zip
+          unzip -o -d Files/iOS/ Files/iOS/TestFairySDK.xcframework.zip
+          rm -f Files/iOS/TestFairySDK.zip
+          rm -f Files/iOS/TestFairySDK.xcframework.zip
+          node build.js static
+          zip -rp9 "TestFairySDK-Unity.zip" Plugins
+          testfairy-unity-asset-packager --debug --prepend 'Assets/Plugins' --output TestFairySDK-Unity.unitypackage --overwrite Plugins
+          sed "s/#import \"TestFairy.h\"/#import <TestFairy\/TestFairy.h>/g" Files/iOS/TestFairyUnityWrapper.m > Files/iOS/TestFairyUnityWrapper.m
+          node build.js xcframework
+          zip -rp9 "TestFairySDK-Unity2021.zip" Plugins
+          testfairy-unity-asset-packager --debug --prepend 'Assets/Plugins' --output TestFairySDK-Unity2021.unitypackage --overwrite Plugins
+      - name: Add Artifacts to Github Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            TestFairySDK-Unity.zip
+            TestFairySDK-Unity.unitypackage
+            TestFairySDK-Unity2021.zip
+            TestFairySDK-Unity2021.unitypackage
