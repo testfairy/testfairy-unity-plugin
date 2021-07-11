@@ -33,3 +33,7 @@ jobs:
           node build.js xcframework
           zip -rp9 "TestFairySDK-Unity2021.zip" Plugins
           testfairy-unity-asset-packager --debug --prepend 'Assets/Plugins' --output TestFairySDK-Unity2021.unitypackage --overwrite Plugins
+          ls -lsrt TestFairySDK-Unity.zip
+          ls -lsrt TestFairySDK-Unity.unitypackage
+          ls -lsrt TestFairySDK-Unity2021.zip
+          ls -lsrt TestFairySDK-Unity2021.unitypackage
