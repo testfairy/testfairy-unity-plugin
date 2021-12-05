@@ -116,6 +116,22 @@ namespace TestFairyUnity
         }
 
         /// <summary>
+        /// Mark an event the TestFairy session timeline. Later you can filter 
+		/// sessions where your user passed through this event, for bettering 
+		// understanding user experience and behavior.
+        /// </summary>
+        /// <param name="name">Name of event, make it short.</param>
+        public static void addEvent(string name)
+        {
+#if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
+#elif UNITY_IPHONE && !UNITY_EDITOR
+			TestFairy_checkpoint(name);
+#elif UNITY_ANDROID && !UNITY_EDITOR
+			TestFairy.callMethod("addCheckpoint", name);
+#endif
+        }
+
+        /// <summary>
         /// Sets a correlation identifier for this session. This value can
         /// be looked up via web dashboard. For example, setting correlation
         /// to the value of the user-id after they logged in. Can be called
