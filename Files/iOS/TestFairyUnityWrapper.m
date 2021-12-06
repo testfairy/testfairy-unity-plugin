@@ -31,6 +31,12 @@ void TestFairy_checkpoint(char *name)
 	[TestFairy checkpoint:value];
 }
 
+void TestFairy_addEvent(char *name)
+{
+	NSString *value = name == NULL ? @"" : [NSString stringWithUTF8String:name];
+	[TestFairy addEvent:value];
+}
+
 void TestFairy_setServerEndpoint(char *serverOverride)
 {
 	NSString *value = serverOverride == NULL ? nil : [NSString stringWithUTF8String:serverOverride];

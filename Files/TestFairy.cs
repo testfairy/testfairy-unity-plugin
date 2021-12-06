@@ -125,9 +125,9 @@ namespace TestFairyUnity
         {
 #if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
 #elif UNITY_IPHONE && !UNITY_EDITOR
-			TestFairy_checkpoint(name);
+			TestFairy_addEvent(name);
 #elif UNITY_ANDROID && !UNITY_EDITOR
-			TestFairy.callMethod("addCheckpoint", name);
+			TestFairy.callMethod("addEvent", name);
 #endif
         }
 
@@ -682,6 +682,9 @@ namespace TestFairyUnity
 
 		[DllImport("__Internal")]
 		private static extern void TestFairy_checkpoint(string name);
+
+		[DllImport("__Internal")]
+		private static extern void TestFairy_addEvent(string name);
 
 		[DllImport("__Internal")]
 		private static extern void TestFairy_setServerEndpoint(string endpoint);
