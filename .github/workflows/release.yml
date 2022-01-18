@@ -18,8 +18,8 @@ jobs:
           npm install
       - name: Update native SDK versions
         run: |
-          ANDROID_SDK_VERSION=1.12.18
-          IOS_VERSION=1.29.5
+          ANDROID_SDK_VERSION=1.12.19
+          IOS_VERSION=1.29.6
           mkdir -p Files/Android/
           mkdir -p Files/iOS/
           curl -s -L https://maven.testfairy.com/com/testfairy/testfairy-android-sdk/${ANDROID_SDK_VERSION}/testfairy-android-sdk-${ANDROID_SDK_VERSION}.aar -o Files/Android/testfairy-android-sdk.aar
