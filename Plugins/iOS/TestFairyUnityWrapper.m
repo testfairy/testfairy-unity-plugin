@@ -208,6 +208,14 @@ void TestFairy_disableMetric(char *metric) {
 	[TestFairy disableMetric: value];
 }
 
+void TestFairy_enableLogs() {
+	[TestFairy enableLogs];
+}
+
+void TestFairy_disableLogs() {
+	[TestFairy disableLogs];
+}
+
 void TestFairy_enableVideo(char *policy, char *quality, float framesPerSecond) {
 	NSString *policy_ = policy == NULL ? @"" : [NSString stringWithUTF8String: policy];
 	NSString *quality_ = quality == NULL ? @"" : [NSString stringWithUTF8String: quality];

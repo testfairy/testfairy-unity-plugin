@@ -398,6 +398,26 @@ namespace TestFairyUnity
 #endif
         }
 
+        public static void enableLogs()
+        {
+#if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
+#elif UNITY_IPHONE && !UNITY_EDITOR
+			TestFairy_enableLogs();
+#elif UNITY_ANDROID && !UNITY_EDITOR
+			TestFairy.callMethod("enableLogs");
+#endif
+        }
+
+		public static void disableLogs()
+        {
+#if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
+#elif UNITY_IPHONE && !UNITY_EDITOR
+			TestFairy_disableLogs();
+#elif UNITY_ANDROID && !UNITY_EDITOR
+			TestFairy.callMethod("disableLogs");
+#endif
+        }
+
         public static void enableFeedbackForm(string method)
         {
 #if UNITY_EDITOR || (!UNITY_ANDROID && !UNITY_IPHONE)
@@ -735,6 +755,12 @@ namespace TestFairyUnity
 
 		[DllImport("__Internal")]
 		private static extern void TestFairy_disableMetric(string metric);
+
+		[DllImport("__Internal")]
+		private static extern void TestFairy_enableLogs();
+
+		[DllImport("__Internal")]
+		private static extern void TestFairy_disableLogs();
 
 		[DllImport("__Internal")]
 		private static extern void TestFairy_disableAutoUpdate();
